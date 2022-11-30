@@ -55,7 +55,7 @@
                 </div>
                 {{ $modules->links() }}
             </div>
-{{--            @include('livewire.covid.module.form')--}}
+                 @include('livewire.admin.module.form')
         </div>
     </div>
 </div>
@@ -77,11 +77,6 @@
 
     function Confirm(id, orders)
     {
-        if (orders > 0){
-            swal('NO SE PUEDE ELIMINAR EL CLIENTE POR QUE TIENE ORDENES RELACIONADAS')
-            return;
-        }
-
         swal({
             title: 'CONFIRMAR',
             text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',

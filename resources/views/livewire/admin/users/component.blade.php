@@ -7,7 +7,7 @@
             </ol>
         </nav>
         <div class="dropdown filter custom-dropdown-icon">
-            <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-target="#theModal"><i class="fas fa-flask"></i> Nuevo Turno</a>
+            <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-target="#theModal"><i class="fas fa-user-plus"></i> Nuevo Usuario</a>
         </div>
     </div>
 
@@ -34,28 +34,45 @@
                         <thead>
                         <tr class="text-center">
                             <th>#</th>
-                            <th>DESCRIPCION</th>
+                            <th>NOMBRES Y APELLIDOS</th>
+                            <th>CORREO ELECTRONICO</th>
+                            <th>PERFIL</th>
+                            <th>LOCAL</th>
+                            <th>ESTADO</th>
                             <th class="text-center">Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sessions as $session)
+                        @foreach($users as $user)
                             <tr>
-                                <td  class="text-center">{{ $session->id }}</td>
-                                <td class="text-center">{{ $session->name }}</td>
-                                <td class="text-center">
-                                        <a href="javascript:void(0);" wire:click="Edit({{ $session->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
+                                <td class="text-center">{{ $user->id }}</td>
+                                <td class="text-center">{{ $user->name }}</td>
+                                <td class="text-center">{{ $user->email }}</td>
+                                <td class="text-center">{{ $user->profile }}</td>
+                                <td class="text-center">{{ $user->place }}</td>
 
-                                        <a href="javascript:void(0);"  onclick="Confirm('{{ $session->id }}')" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash-alt text-danger fa-lg btn btn-outline-danger"></i></a>
+                                <td class="text-center">
+                                    @if($user->status == 'Active')
+                                        <i class="fas fa-lock-open text-success fa-lg"></i>
+                                    @else
+                                        <i class="fas fa-lock text-danger fa-lg"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+
+                                    <a href="javascript:void(0);" wire:click="Edit({{ $user->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
+
+                                    <a href="javascript:void(0);"  onclick="Confirm('{{ $user->id }}')" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash-alt text-danger fa-lg btn btn-outline-danger"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $sessions->links() }}
+                {{ $users->links() }}
             </div>
-                 @include('livewire.admin.session.form')
+            @include('livewire.admin.users.form')
         </div>
     </div>
 </div>
@@ -66,16 +83,28 @@
             $('#theModal').modal('show')
         });
 
-        window.livewire.on('session-added', msg => {
+        window.livewire.on('user-added', msg => {
             $('#theModal').modal('hide')
         });
 
-        window.livewire.on('session-updated', msg => {
+        window.livewire.on('user-updated', Msg => {
             $('#theModal').modal('hide')
+            noty(Msg)
+        });
+        window.livewire.on('user-deleted', Msg => {
+            noty(Msg)
+        });
+
+        window.livewire.on('hide-modal', msg => {
+            $('#theModal').modal('hide')
+        });
+
+        window.livewire.on('user-withorders', Msg => {
+            noty(Msg)
         });
     });
 
-    function Confirm(id, orders)
+    function Confirm(id)
     {
         swal({
             title: 'CONFIRMAR',

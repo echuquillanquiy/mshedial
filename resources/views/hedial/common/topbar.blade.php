@@ -25,19 +25,19 @@
                     </a>
                 <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
                         <li>
-                            <a href=""> Roles </a>
+                            <a href="{{ route('roles') }}"> Roles </a>
                         </li>
 
                         <li>
-                            <a href=""> Permisos </a>
+                            <a href="{{ route('permisos') }}"> Permisos </a>
                         </li>
 
                         <li>
-                            <a href=""> Asignar </a>
+                            <a href="{{ route('asignar.permisos') }}"> Asignar </a>
                         </li>
 
                         <li>
-                            <a href=""> Usuarios </a>
+                            <a href="{{ route('usuarios') }}"> Usuarios </a>
                         </li>
 
                         <li>
@@ -49,7 +49,7 @@
                         </li>
 
                         <li>
-                            <a href=""> Turnos </a>
+                            <a href="{{ route('turnos') }}"> Turnos </a>
                         </li>
 
                         <li>
@@ -66,17 +66,21 @@
                     <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div>
                             <i class="fas fa-people-arrows text-primary"></i>
-                            <span class="text-primary">Admisión</span>
+                            <span class="text-primary">Atenciones</span>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
                 <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
                         <li>
-                            <a href=""> Pacientes </a>
+                            <a href=""> Generar Tratamiento </a>
                         </li>
 
                         <li>
-                            <a href=""> Ordenes </a>
+                            <a href=""> Historia Inicial </a>
+                        </li>
+
+                        <li>
+                            <a href=""> Generar Referencia </a>
                         </li>
 
                 </ul>

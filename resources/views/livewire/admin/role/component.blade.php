@@ -6,9 +6,11 @@
                 <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">{{ $componentName }}</a></li>
             </ol>
         </nav>
+
         <div class="dropdown filter custom-dropdown-icon">
-            <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-target="#theModal"><i class="fas fa-flask"></i> Nuevo Turno</a>
+            <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-target="#theModal"><i class="fas fa-building"></i> Nueva Role</a>
         </div>
+
     </div>
 
     <div class="row">
@@ -39,23 +41,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sessions as $session)
+                        @foreach($roles as $role)
                             <tr>
-                                <td  class="text-center">{{ $session->id }}</td>
-                                <td class="text-center">{{ $session->name }}</td>
+                                <td class="text-center">{{ $role->id }}</td>
+                                <td class="text-center">{{ $role->name }}</td>
                                 <td class="text-center">
-                                        <a href="javascript:void(0);" wire:click="Edit({{ $session->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
-
-                                        <a href="javascript:void(0);"  onclick="Confirm('{{ $session->id }}')" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash-alt text-danger fa-lg btn btn-outline-danger"></i></a>
+                                    <a href="javascript:void(0);" wire:click="Edit({{ $role->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
+                                    <a href="javascript:void(0);"  onclick="Confirm('{{ $role->id }}')" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash-alt text-danger fa-lg btn btn-outline-danger"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $sessions->links() }}
+                {{ $roles->links() }}
             </div>
-                 @include('livewire.admin.session.form')
+            @include('livewire.admin.role.form')
         </div>
     </div>
 </div>
@@ -66,16 +67,34 @@
             $('#theModal').modal('show')
         });
 
-        window.livewire.on('session-added', msg => {
+        window.livewire.on('role-added', Msg => {
             $('#theModal').modal('hide')
+            noty(Msg)
         });
 
-        window.livewire.on('session-updated', msg => {
+        window.livewire.on('role-updated', Msg => {
+            $('#theModal').modal('hide')
+            noty(Msg)
+        });
+
+        window.livewire.on('role-deleted', Msg => {
+            noty(Msg)
+        });
+
+        window.livewire.on('role-exists', Msg => {
+            noty(Msg)
+        });
+
+        window.livewire.on('role-error', Msg => {
+            noty(Msg)
+        });
+
+        window.livewire.on('hide-modal', Msg => {
             $('#theModal').modal('hide')
         });
     });
 
-    function Confirm(id, orders)
+    function Confirm(id)
     {
         swal({
             title: 'CONFIRMAR',
@@ -88,7 +107,7 @@
             confirmButtonText: 'Aceptar',
         }).then(function (result){
             if (result.value){
-                window.livewire.emit('deleteRow', id)
+                window.livewire.emit('destroy', id)
                 swal.close()
             }
         })

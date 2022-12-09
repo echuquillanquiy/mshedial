@@ -72,7 +72,7 @@
                     </a>
                 <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
                         <li>
-                            <a href=""> Generar Tratamiento </a>
+                            <a href="{{ route('generar.orden') }}"> Generar Tratamiento </a>
                         </li>
 
                         <li>

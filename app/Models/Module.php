@@ -11,4 +11,9 @@ class Module extends Model
 
     protected $fillable = ['name'];
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

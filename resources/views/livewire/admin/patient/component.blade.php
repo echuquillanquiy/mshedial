@@ -34,6 +34,7 @@
                         <thead>
                         <tr class="text-center">
                             <th>#</th>
+                            <th>DNI</th>
                             <th>NOMBRES</th>
                             <th>APELLIDOS</th>
                             <th>CELULAR</th>
@@ -47,6 +48,7 @@
                         @foreach($patients as $patient)
                             <tr>
                                 <td class="text-center">{{ $patient->id }}</td>
+                                <td class="text-center">{{ $patient->dni }}</td>
                                 <td class="text-center">{{ $patient->name }}</td>
                                 <td class="text-center">{{ $patient->lastname }}</td>
                                 <td class="text-center">{{ $patient->phone }}</td>

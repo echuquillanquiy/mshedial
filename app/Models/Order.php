@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -26,4 +25,19 @@ class Order extends Model
     {
         return $this->belongsTo(Session::class);
     }
+
+    public function nurse()
+    {
+        return $this->hasOne(Nurse::class)->withDefault();
+    }
+
+    public function medical()
+    {
+        return $this->hasOne(Medical::class)->withDefault();
+    }
+    public function treatment()
+    {
+        return $this->hasOne(Treatment::class)->withDefault();
+    }
+
 }

@@ -55,9 +55,9 @@
                                 <td class="text-center">{{ $patient->code }}</td>
                                 <td class="text-center">
                                     @if($patient->status == "ACTIVE")
-                                        <span class="badge outline-badge-success"> {{ $patient->status }} </span>
+                                        <span class="badge outline-badge-success"> ACTIVO </span>
                                     @else
-                                        <span class="badge outline-badge-danger"> {{ $patient->status }} </span>
+                                        <span class="badge outline-badge-danger"> INACTIVO </span>
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $patient->created_at->format('Y-m-d') }}</td>
@@ -85,6 +85,10 @@
         window.livewire.on('show-modal', msg => {
             $('#theModal').modal('show')
         });
+
+        window.livewire.on('show-patient-inactive', msg => {
+            noty(msg)
+        })
 
         window.livewire.on('patient-added', msg => {
             $('#theModal').modal('hide')

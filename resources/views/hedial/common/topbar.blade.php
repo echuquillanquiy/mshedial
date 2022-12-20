@@ -66,7 +66,7 @@
                     <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div>
                             <i class="fas fa-people-arrows text-primary"></i>
-                            <span class="text-primary">Atenciones</span>
+                            <span class="text-primary">Admision</span>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
@@ -96,15 +96,11 @@
                     </a>
                 <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
                         <li>
-                            <a href=""> Medicina </a>
+                            <a href="{{ route('atencion.medica') }}"> Medicina </a>
                         </li>
 
                         <li>
-                            <a href=""> Laboratorio </a>
-                        </li>
-
-                        <li>
-                            <a href=""> Auditoria </a>
+                            <a href=""> Enfermeria </a>
                         </li>
 
                 </ul>

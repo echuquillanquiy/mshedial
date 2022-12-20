@@ -16,10 +16,10 @@ class CreateNursesTable extends Migration
         Schema::create('nurses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('order_id')->constrained();
-            $table->foreignId('patient_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('module_id')->constrained()->cascadeOnUpdate();
-            $table->foreignId('session_id')->constrained()->cascadeOnUpdate();
+            $table->foreignId('order_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('patient_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('module_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('session_id')->constrained()->onUpdate('cascade');
 
             $table->integer('hcl')->nullable();
             $table->string('frequency')->nullable();

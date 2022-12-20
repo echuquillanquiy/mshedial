@@ -16,6 +16,11 @@ class CreateTreatmentsTable extends Migration
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('order_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('patient_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('module_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('session_id')->constrained()->onUpdate('cascade');
+
             $table->string('hr', 25)->nullable();
             $table->string('pa', 25)->nullable();
             $table->string('freq', 25, 25)->nullable();

@@ -41,6 +41,7 @@
                             <th>PACIENTE (Apellidos y Nombres)</th>
                             <th>MODULO</th>
                             <th>TURNO</th>
+                            <th>PCAIENTE COVID</th>
                             <th>FECHA DE REGISTRO</th>
                             <th class="text-center">Opciones</th>
                         </tr>
@@ -52,6 +53,7 @@
                                 <td class="text-center">{{ $order->patient->lastname }}, {{ $order->patient->name }}</td>
                                 <td class="text-center">{{ $order->module->name }}</td>
                                 <td class="text-center">{{ $order->session->name }}</td>
+                                <td class="text-center">{{ $order->covid }}</td>
                                 <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
                                     <a href="javascript:void(0);" wire:click="Edit({{ $order->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
@@ -79,6 +81,11 @@
         window.livewire.on('order-added', msg => {
             $('#theModal').modal('hide')
             noty(msg)
+        });
+
+        window.livewire.on('mnt-withorders', Msg => {
+            $('#theModal').modal('hide')
+            noty(Msg)
         });
 
         window.livewire.on('order-exists', Msg => {

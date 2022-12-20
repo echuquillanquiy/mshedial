@@ -16,4 +16,18 @@ class Patient extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function medical()
+    {
+        return $this->hasOne(Medical::class);
+    }
+
+    public function nurse()
+    {
+        return $this->hasMany(Nurse::class);
+    }
+
+    public function treatment()
+    {
+        return $this->hasMany(Treatment::class);
+    }
 }

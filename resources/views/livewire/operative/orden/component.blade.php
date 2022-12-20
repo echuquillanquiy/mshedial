@@ -41,7 +41,7 @@
                             <th>PACIENTE (Apellidos y Nombres)</th>
                             <th>MODULO</th>
                             <th>TURNO</th>
-                            <th>PCAIENTE COVID</th>
+                            <th>PACIENTE COVID</th>
                             <th>FECHA DE REGISTRO</th>
                             <th class="text-center">Opciones</th>
                         </tr>

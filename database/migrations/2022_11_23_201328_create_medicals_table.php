@@ -44,7 +44,7 @@ class CreateMedicalsTable extends Migration
             $table->string('start_hour')->nullable();
             $table->string('end_hour')->nullable();
             $table->text('indications')->nullable();
-
+            $table->text('signal')->nullable();
             $table->timestamps();
         });
     }

@@ -125,9 +125,9 @@
 
                         <div class="form-group mb-4 col-lg-3 col-12 mx-auto">
                             <label for="exampleFormControlTextarea1">Signos y Sintomas</label>
-                            <textarea class="form-control" wire:model="" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="signal" rows="3"></textarea>
 
-                            @error('')
+                            @error('signal')
                                 <span class="text-danger er">{{ $message }}</span>
                             @enderror
                         </div>
@@ -139,9 +139,9 @@
                             <div class="form-group">
                                 <label class="control-label">HEPARINA:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="heparin" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('heparin')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -151,9 +151,9 @@
                             <div class="form-group">
                                 <label class="control-label">Peso Seco:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="dry_weight" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('dry_weight')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -163,9 +163,9 @@
                             <div class="form-group">
                                 <label class="control-label">QB:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="qb" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('qb')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -175,9 +175,9 @@
                             <div class="form-group">
                                 <label class="control-label">QD:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="qd" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('qd')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -187,9 +187,9 @@
                             <div class="form-group">
                                 <label class="control-label">Bicarbonato:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="bicarbonat" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('bicarbonat')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -199,9 +199,9 @@
                             <div class="form-group">
                                 <label class="control-label">NA INICIAL:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="start_na" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('start_na')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -214,9 +214,9 @@
                             <div class="form-group">
                                 <label class="control-label">CND:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="cnd" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('cnd')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -226,9 +226,9 @@
                             <div class="form-group">
                                 <label class="control-label">NA FINAL:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="end_na" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('end_na')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -238,9 +238,9 @@
                             <div class="form-group">
                                 <label class="control-label">Perfil Na:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="profile_na" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('profile_na')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -250,9 +250,9 @@
                             <div class="form-group">
                                 <label class="control-label">ÁREA/FILTRO:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="area_filter" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('area_filter')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -262,9 +262,9 @@
                             <div class="form-group">
                                 <label class="control-label">MEMBRANA:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="membrane" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('membrane')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -274,9 +274,9 @@
                             <div class="form-group">
                                 <label class="control-label">Perfil UF:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="text" class="form-control" required>
+                                    <input wire:model="profile_uf" type="text" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('profile_uf')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -288,16 +288,20 @@
 
                         <div class="form-group mb-4 col-lg-9 col-12">
                             <label for="exampleFormControlTextarea1">Evaluación Final:</label>
-                            <textarea class="form-control" wire:model="" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="end_evaluation" rows="3"></textarea>
+
+                            @error('end_evaluation')
+                            <span class="text-danger er">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-lg-3 col-12">
                             <div class="form-group">
                                 <label class="control-label">Hora final:</label>
                                 <div class="input-group">
-                                    <input wire:model="" type="time" class="form-control" required>
+                                    <input wire:model="end_hour" type="time" class="form-control" required>
                                 </div>
-                                @error('')
+                                @error('end_hour')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -307,11 +311,11 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-12">
-                            <button class="btn btn-secondary btn-block">GUARDAR</button>
+                            <button type="button" wire:click.prevent="Update()" class="btn btn-secondary btn-block">GUARDAR</button>
                         </div>
 
                         <div class="col-lg-3 col-12">
-                            <button class="btn btn-danger btn-block">REGRESAR</button>
+                            <a href="{{ route('atencion.medica') }}" class="btn btn-danger btn-block">REGRESAR</a>
                         </div>
                     </div>
                 </div>
@@ -319,3 +323,33 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+
+        window.livewire.on('medical-updated', msg => {
+            noty(msg)
+        })
+
+    });
+
+    function Confirm(id)
+    {
+        swal({
+            title: 'CONFIRMAR',
+            text: '¿CONFIRMAS ELIMINAR EL REGISTRO?',
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+            cancelButtonColor: '#fff',
+            confirmButtonColor: '#3B3F5C',
+            confirmButtonText: 'Aceptar',
+        }).then(function (result){
+            if (result.value){
+                window.livewire.emit('deleteRow', id)
+                swal.close()
+            }
+        })
+    }
+</script>

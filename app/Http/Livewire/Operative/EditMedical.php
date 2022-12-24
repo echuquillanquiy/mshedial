@@ -90,30 +90,30 @@ class EditMedical extends Component
         ];
 
         $messages = [
-            'hour_hd.required' => 'El campo hour_hd es requerido',
-            'heparin.required' => 'El campo heparin es requerido',
-            'dry_weight.required' => 'El campo dry_weight es requerido',
-            'start_weight.required' => 'El campo start_weight es requerido',
-            'uf.required' => 'El campo uf es requerido',
-            'qb.required' => 'El campo qb es requerido',
-            'qd.required' => 'El campo qd es requerido',
-            'bicarbonat.required' => 'El campo bicarbonat es requerido',
-            'cnd.required' => 'El campo cnd es requerido',
-            'start_na.required' => 'El campo start_na es requerido',
-            'end_na.required' => 'El campo end_na es requerido',
-            'start_pa.required' => 'El campo start_pa es requerido',
-            'profile_na.required' => 'El campo profile_na es requerido',
-            'profile_uf.required' => 'El campo profile_uf es requerido',
-            'area_filter.required' => 'El campo area_filter es requerido',
-            'membrane.required' => 'El campo membrane es requerido',
-            'clinical_trouble.required' => 'El campo clinical_trouble es requerido',
-            'fc.required' => 'El campo fc es requerido',
-            'evaluation.required' => 'El campo evaluation es requerido',
-            'end_evaluation.required' => 'El campo end_evaluation es requerido',
-            'start_hour.required' => 'El campo start_hour es requerido',
-            'end_hour.required' => 'El campo end_hour es requerido',
-            'indications.required' => 'El campo indications es requerido',
-            'signal.required' => 'El campo signal es requerido',
+            'hour_hd.required' => 'Coloque las horas de hd.',
+            'heparin.required' => 'Coloque el valor de heparina.',
+            'dry_weight.required' => 'Coloque el peso seco.',
+            'start_weight.required' => 'Coloque peso inicial.',
+            'uf.required' => 'Coloque ultrafltrado.',
+            'qb.required' => 'Coloque QB.',
+            'qd.required' => 'Coloque QB.',
+            'bicarbonat.required' => 'Coloque bicarbnato.',
+            'cnd.required' => 'Coloque CND.',
+            'start_na.required' => 'Coloque Sodio Inicial.',
+            'end_na.required' => 'Coloque Sodio Final.',
+            'start_pa.required' => 'Coloque Presion Inicial.',
+            'profile_na.required' => 'Coloque Perfil NA.',
+            'profile_uf.required' => 'Coloque Perfil UF.',
+            'area_filter.required' => 'Coloque Area y Filtro.',
+            'membrane.required' => 'Coloque Membrana.',
+            'clinical_trouble.required' => 'Ingrese problemas Clinicos.',
+            'fc.required' => 'Coloque Frecuencia Cardiaca.',
+            'evaluation.required' => 'Es necesaria la Evaluacion.',
+            'end_evaluation.required' => 'Rellle la evaluacion final.',
+            'start_hour.required' => 'Seleccione hora  Inicio.',
+            'end_hour.required' => 'Seleccione hora Final',
+            'indications.required' => 'Son necesarias las indicaciones',
+            'signal.required' => 'Coloque Signos y Sintomas.',
         ];
 
         $this->validate($rules, $messages);
@@ -147,14 +147,9 @@ class EditMedical extends Component
             'signal' => $this->signal,
         ]);
 
-        $this->resetUI();
-        $this->emit('medical-updated', 'Atencion Actualizada');
+        $this->emit('medical-updated', 'SE REALIZO EL CORRECTO GUARDADO DE DATOS');
 
     }
 
-    public function resetUI()
-    {
-
-    }
 
 }

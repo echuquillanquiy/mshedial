@@ -31,7 +31,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-one">
                 <div class="table-responsive">
-                    <table class="table table-bmedicaled table-hover">
+                    <table class="table table-bnurseed table-hover">
                         <thead>
                         <tr class="text-center">
                             <th>#</th>
@@ -40,37 +40,37 @@
                             <th>TURNO</th>
                             <th>PACIENTE CON COVID19</th>
                             <th>FECHA DE REGISTRO</th>
-                            <th class="text-center">HISTORIA</th>
-                            <th class="text-center">Referencia</th>
+                            <th class="text-center">VALORACION</th>
+                            <th class="text-center">TRATAMIENTO</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($medicals as $medical)
+                        @foreach($nurses as $nurse)
                             <tr>
-                                <td class="text-center">{{ $medical->id }}</td>
-                                <td class="text-center">{{ $medical->patient->lastname }}, {{ $medical->patient->name }}</td>
-                                <td class="text-center">{{ $medical->module->name }}</td>
-                                <td class="text-center">{{ $medical->session->name }}</td>
+                                <td class="text-center">{{ $nurse->id }}</td>
+                                <td class="text-center">{{ $nurse->patient->lastname }}, {{ $nurse->patient->name }}</td>
+                                <td class="text-center">{{ $nurse->module->name }}</td>
+                                <td class="text-center">{{ $nurse->session->name }}</td>
                                 <td class="text-center">
-                                    @if($medical->order->covid == 'NO')
-                                        <span class="badge badge-success">{{ $medical->order->covid  }}</span>
+                                    @if($nurse->order->covid == 'NO')
+                                        <span class="badge badge-success">{{ $nurse->order->covid  }}</span>
                                     @else
-                                        <span class="badge badge-danger">{{ $medical->order->covid  }}</span>
+                                        <span class="badge badge-danger">{{ $nurse->order->covid  }}</span>
                                     @endif
                                 </td>
-                                <td class="text-center">{{ $medical->created_at->format('Y-m-d') }}</td>
+                                <td class="text-center">{{ $nurse->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('historia.medica', $medical) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA"><i class="fas fa-stethoscope text-info fa-lg btn btn-outline-info"></i></a>
+                                    <a href="{{ route('nurse.edit', $nurse) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA"><i class="fas fa-user-nurse text-info fa-lg btn btn-outline-info"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA"><i class="fas fa-ambulance text-secondary fa-lg btn btn-outline-secondary"></i></a>
+                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA"><i class="fas fa-book-medical text-secondary fa-lg btn btn-outline-secondary"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $medicals->links() }}
+                {{ $nurses->links() }}
             </div>
 
         </div>
@@ -83,27 +83,27 @@
             $('#theModal').modal('show')
         });
 
-        window.livewire.on('medical-added', msg => {
+        window.livewire.on('nurse-added', msg => {
             $('#theModal').modal('hide')
             noty(msg)
         });
 
-        window.livewire.on('mnt-withmedicals', Msg => {
+        window.livewire.on('mnt-withnurses', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('medical-exists', Msg => {
+        window.livewire.on('nurse-exists', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('medical-updated', msg => {
+        window.livewire.on('nurse-updated', msg => {
             $('#theModal').modal('hide')
         });
     });
 
-    function Confirm(id, medicals)
+    function Confirm(id, nurses)
     {
         swal({
             title: 'CONFIRMAR',

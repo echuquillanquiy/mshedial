@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Operative;
 
-use App\Models\Medical;
+use App\Models\Nurse;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Medicals extends Component
+class Nurses extends Component
 {
     use WithPagination;
 
@@ -16,7 +16,7 @@ class Medicals extends Component
     public function mount()
     {
         $this->pageTitle = 'Listado';
-        $this->componentName = 'Atenciones Medicas';
+        $this->componentName = 'Enfermeria y Tratamiento';
         $this->pageSelected = 25;
         $this->dateFilter = Carbon::now()->format('Y-m-d');
     }
@@ -31,17 +31,18 @@ class Medicals extends Component
     public function render()
     {
         if ($this->search || $this->dateFilter)
-            $medicals = Medical::join('patients as pat', 'pat.id', 'medicals.patient_id')
-                    ->select('medicals.*', 'pat.lastname as apellidos', 'medicals.created_at as fecha')
-                    ->where('pat.lastname', 'LIKE', '%' . $this->search . '%')
-                    ->whereDate('medicals.created_at', $this->dateFilter)
-                    ->orderBy('id', 'desc')
-                    ->paginate($this->pageSelected);
+            $nurses = Nurse::join('patients as pat', 'pat.id', 'nurses.patient_id')
+                ->select('nurses.*', 'pat.lastname as apellidos', 'nurses.created_at as fecha')
+                ->where('pat.lastname', 'LIKE', '%' . $this->search . '%')
+                ->whereDate('nurses.created_at', $this->dateFilter)
+                ->orderBy('id', 'desc')
+                ->paginate($this->pageSelected);
         else
-            $medicals = Medical::whereDate('created_at', $this->dateFilter)
+            $nurses = Nurse::whereDate('created_at', $this->dateFilter)
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->pageSelected);
 
-        return view('livewire.operative.medical.component', compact('medicals'));
+
+        return view('livewire.operative.nurse.component', compact('nurses'));
     }
 }

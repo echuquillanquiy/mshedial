@@ -100,7 +100,7 @@
                         </li>
 
                         <li>
-                            <a href=""> Enfermeria </a>
+                            <a href="{{ route('nurse.index') }}"> Enfermeria </a>
                         </li>
 
                 </ul>

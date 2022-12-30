@@ -46,7 +46,7 @@
 
                         <div class="col-lg-2 col-12 mx-auto">
                             <div class="form-group">
-                                <label class="control-label">P.A. N° HD:</label>
+                                <label class="control-label">N° HD:</label>
                                 <div class="input-group">
                                     <input wire:model="nhd" type="text" class="form-control" required>
                                 </div>
@@ -188,45 +188,33 @@
                             <div class="form-group">
                                 <label class="control-label">UF:</label>
                                 <div class="input-group">
-                                    <input wire:model="cnd" type="text" class="form-control" required>
+                                    <input wire:model="uf" type="text" class="form-control" required>
                                 </div>
-                                @error('cnd')
+                                @error('uf')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-12 mx-auto">
-                            <div class="form-group">
-                                <label class="control-label">NA FINAL:</label>
-                                <div class="input-group">
-                                    <input wire:model="end_na" type="text" class="form-control" required>
-                                </div>
-                                @error('end_na')
-                                <span class="text-danger er">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-3 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">ARTERIAL:</label>
                                 <div class="input-group">
-                                    <input wire:model="profile_na" type="text" class="form-control" required>
+                                    <input wire:model="access_arterial" type="text" class="form-control" required>
                                 </div>
-                                @error('profile_na')
+                                @error('access_arterial')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-3 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">VENOSO:</label>
                                 <div class="input-group">
-                                    <input wire:model="area_filter" type="text" class="form-control" required>
+                                    <input wire:model="access_venoso" type="text" class="form-control" required>
                                 </div>
-                                @error('area_filter')
+                                @error('access_venoso')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -274,18 +262,6 @@
 
                         <div class="col-lg-2 col-12 mx-auto">
                             <div class="form-group">
-                                <label class="control-label">NA FINAL:</label>
-                                <div class="input-group">
-                                    <input wire:model="end_na" type="text" class="form-control" required>
-                                </div>
-                                @error('end_na')
-                                <span class="text-danger er">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-12 mx-auto">
-                            <div class="form-group">
                                 <label class="control-label">Hidroxicobalamina:</label>
                                 <div class="input-group">
                                     <input wire:model="hidroxi" type="text" class="form-control" required>
@@ -308,7 +284,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-4 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">Otros Medicamentos:</label>
                                 <div class="input-group">
@@ -377,7 +353,7 @@
                         </div>
 
                         <div class="col-lg-3 col-12">
-                            <a href="{{ route('atencion.medica') }}" class="btn btn-danger btn-block">REGRESAR</a>
+                            <a href="{{ route('nurse.index') }}" class="btn btn-danger btn-block">REGRESAR</a>
                         </div>
                     </div>
                 </div>
@@ -390,7 +366,7 @@
     document.addEventListener('DOMContentLoaded', function (){
 
 
-        window.livewire.on('medical-updated', msg => {
+        window.livewire.on('nurse-updated', msg => {
             noty(msg)
         })
 

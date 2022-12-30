@@ -18,11 +18,11 @@
     {
         Snackbar.show({
             text: msg.toUpperCase(),
-            actionText: 'CERRAR',
+            actionText: 'X',
             actionTextColor: '#fff',
-            backgroundColor: option === 1 ? '#FF5733' : '#e7515a',
-            pos: 'top-right',
-            duration: 2000
+            backgroundColor: option === 1 ? '#2ECC71' : '#EC7063',
+            pos: 'top-center',
+            duration: 4000
         });
     }
 </script>

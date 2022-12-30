@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Operative;
 
 use App\Models\Medical;
 use Carbon\Carbon;
-use http\Env\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 

@@ -31,7 +31,7 @@ class CreateNursesTable extends Migration
             $table->string('end_weight')->nullable();
             $table->string('machine')->nullable();
             $table->string('brand_model')->nullable();
-            $table->string('position', 2)->nullable();
+            $table->string('position')->nullable();
             $table->string('filter')->nullable();
             $table->string('uf')->nullable();
             $table->string('access_arterial')->nullable();

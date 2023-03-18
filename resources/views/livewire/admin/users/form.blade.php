@@ -16,17 +16,32 @@
         </div>
     </div>
 
-    <div class="col-xl-7">
+    <div class="col-xl-4">
         <div class="form-group">
             <label class="control-label">CORREO ELECTRONICO:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                    <div class="input-group-text"><i class="fas fa-mail-bulk"></i></div>
                 </div>
                 <input type="text" wire:model.lazy="email" class="form-control" >
             </div>
             @error('email')
             <span class="text-danger er">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="form-group">
+            <label class="control-label">NOMBRE DE USUARIO:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                </div>
+                <input type="text" wire:model.lazy="username" class="form-control" >
+            </div>
+            @error('username')
+                <span class="text-danger er">{{ $message }}</span>
             @enderror
         </div>
     </div>
@@ -77,12 +92,12 @@
         @enderror
     </div>
 
-    <div class="col-xl-7">
+    <div class="col-xl-12">
         <div class="form-group">
             <label class="control-label">CONTRASEÑA:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                    <div class="input-group-text"><i class="fas fa-user-lock"></i></div>
                 </div>
                 <input type="password" wire:model.lazy="password" class="form-control" >
             </div>
@@ -92,6 +107,15 @@
         </div>
     </div>
 
+    <div class="col-xl-12">
+        <div class="form-group custom-file">
+            <input type="file" class="custom-file-input form-control" wire:model="sign" accept="image/png, image/gif, image/jpeg">
+            <label class="custom-file-label">Imágen {{ $sign }}</label>
+            @error('sign')
+            <span class="text-danger er">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
 
 </div>
 

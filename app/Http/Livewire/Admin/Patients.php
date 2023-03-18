@@ -6,13 +6,15 @@ use App\Models\Patient;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 
 class Patients extends Component
 {
+    use WithFileUploads;
     use WithPagination;
 
-    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $dni, $name, $lastname, $birthday, $sex, $age, $address, $phone, $civil_state, $education, $ocupation, $condition, $last_work, $origin, $code, $status;
+    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $dni, $firstname, $secondname, $surname, $lastname, $birthday, $sex, $age, $address, $phone, $civil_state, $education, $condition, $last_work, $code, $status, $sign, $fingerprint;
     protected $paginationTheme = 'bootstrap';
 
     public function updatingSearch()
@@ -47,10 +49,24 @@ class Patients extends Component
         $this->age = Carbon::parse($this->birthday)->diffInYears($this->now, $this->birthday);
     }
 
+    public function filiation()
+    {
+        if ($this->dni)
+        {
+            $this->code = '2-' . $this->dni;
+        }
+        else
+        {
+            $this->code = '';
+        }
+    }
+
     public function Edit(Patient $patient)
     {
         $this->dni = $patient->dni;
-        $this->name = $patient->name;
+        $this->firstname = $patient->firstname;
+        $this->secondname = $patient->secondname;
+        $this->surname = $patient->surname;
         $this->lastname = $patient->lastname;
         $this->birthday = $patient->birthday;
         $this->sex = $patient->sex;
@@ -59,12 +75,12 @@ class Patients extends Component
         $this->phone = $patient->phone;
         $this->civil_state = $patient->civil_state;
         $this->education = $patient->education;
-        $this->ocupation = $patient->ocupation;
         $this->condition = $patient->condition;
         $this->last_work = $patient->last_work;
-        $this->origin = $patient->origin;
         $this->code = $patient->code;
         $this->status = $patient->status;
+        $this->sign = $patient->sign;
+        $this->fingerprint = $patient->fingerprint;
         $this->selected_id = $patient->id;
 
         $this->emit('show-modal', 'Show Modal');
@@ -74,23 +90,28 @@ class Patients extends Component
     {
         $rules = [
             'dni' => 'required|min:8|unique:patients',
-            'name' => 'required|min:3',
+            'firstname' => 'required|min:3',
+            'secondname' => 'required|min:3',
+            'surname' => 'required|min:3',
             'lastname' => 'required|min:3',
             'birthday' => 'required',
             'age' => 'min:1',
             'address' => 'min:5',
             'phone' => 'min:9',
             'condition' => 'min:5',
-            'origin' => 'min:5',
-            'code' => 'min:15',
+            'code' => 'min:10',
         ];
 
         $messages = [
             'dni.required' => 'El # DNI es requerido.',
             'dni.min' => 'El dni debe tener mínimo 8 digítos.',
             'dni.unique' => 'El DNI ya esta registrado.',
-            'name.required' => 'Los nombres son obligatorios.',
-            'name.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'firstname.required' => 'Los nombres son obligatorios.',
+            'firstname.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'secondname.required' => 'Los nombres son obligatorios.',
+            'secondname.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'surname.required' => 'Los nombres son obligatorios.',
+            'surname.min' => 'Los nombres deben tener minimo 3 carácteres.',
             'lastname.required' => 'Los apellidos son obligatorios.',
             'lastname.min' => 'Los apellidos debe tener minimo 3 carácteres.',
             'birthday.required' => 'la fecha de nacimiento es obligatoria.',
@@ -98,7 +119,6 @@ class Patients extends Component
             'address.min' => 'La direccion debe tener minimo 5 carácteres.',
             'phone.min' => 'El telefono debe tener minimo 9 carácteres.',
             'condition.min' => 'La condicion debe tener minimo 5 carácteres.',
-            'origin.min' => 'El hospital de origen debe tener minimo 5 carácteres.',
             'code.min' => 'El autogenerado debe tener minimo 15 caracteres.'
         ];
 
@@ -106,7 +126,9 @@ class Patients extends Component
 
         $patient = Patient::create([
             'dni' => $this->dni,
-            'name' => $this->name,
+            'firstname' => $this->firstname,
+            'secondname' => $this->secondname,
+            'surname' => $this->surname,
             'lastname' => $this->lastname,
             'birthday' => $this->birthday,
             'sex' => $this->sex,
@@ -115,12 +137,26 @@ class Patients extends Component
             'phone' => $this->phone,
             'civil_state' => $this->civil_state,
             'education' => $this->education,
-            'ocupation' => $this->ocupation,
             'condition' => $this->condition,
             'last_work' => $this->last_work,
-            'origin' => $this->origin,
-            'code' => $this->code,
+            'code' => '2-' . $this->dni,
         ]);
+
+        if ($this->sign)
+        {
+            $customFileName = uniqid() . '_.' . $this->sign->extension();
+            $this->sign->storeAs('public/firma_paciente', $customFileName);
+            $patient->sign = $customFileName;
+            $patient->save();
+        }
+
+        if ($this->fingerprint)
+        {
+            $customFileName = uniqid() . '_.' . $this->fingerprint->extension();
+            $this->fingerprint->storeAs('public/huella_paciente', $customFileName);
+            $patient->fingerprint = $customFileName;
+            $patient->save();
+        }
 
 
         $this->resetUI();
@@ -131,23 +167,28 @@ class Patients extends Component
     {
         $rules = [
             'dni' => "required|min:8|unique:patients,dni,{$this->selected_id}",
-            'name' => 'required|min:3',
+            'firstname' => 'required|min:3',
+            'secondname' => 'required|min:3',
+            'surname' => 'required|min:3',
             'lastname' => 'required|min:3',
             'birthday' => 'required',
             'age' => 'min:1',
             'address' => 'min:5',
             'phone' => 'min:9',
             'condition' => 'min:5',
-            'origin' => 'min:5',
-            'code' => 'min:15',
+            'code' => 'min:10',
         ];
 
         $messages = [
             'dni.required' => 'El # DNI es requerido.',
             'dni.min' => 'El dni debe tener mínimo 8 digítos.',
             'dni.unique' => 'El DNI ya esta registrado.',
-            'name.required' => 'Los nombres son obligatorios.',
-            'name.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'firstname.required' => 'Los nombres son obligatorios.',
+            'firstname.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'secondname.required' => 'Los nombres son obligatorios.',
+            'secondname.min' => 'Los nombres deben tener minimo 3 carácteres.',
+            'surname.required' => 'Los nombres son obligatorios.',
+            'surname.min' => 'Los nombres deben tener minimo 3 carácteres.',
             'lastname.required' => 'Los apellidos son obligatorios.',
             'lastname.min' => 'Los apellidos debe tener minimo 3 carácteres.',
             'birthday.required' => 'la fecha de nacimiento es obligatoria.',
@@ -155,7 +196,6 @@ class Patients extends Component
             'address.min' => 'La direccion debe tener minimo 5 carácteres.',
             'phone.min' => 'El telefono debe tener minimo 9 carácteres.',
             'condition.min' => 'La condicion debe tener minimo 5 carácteres.',
-            'origin.min' => 'El hospital de origen debe tener minimo 5 carácteres.',
             'code.min' => 'El autogenerado debe tener minimo 15 caracteres.'
         ];
 
@@ -165,7 +205,9 @@ class Patients extends Component
 
         $patient->update([
             'dni' => $this->dni,
-            'name' => $this->name,
+            'firstname' => $this->firstname,
+            'secondname' => $this->secondname,
+            'surname' => $this->surname,
             'lastname' => $this->lastname,
             'birthday' => $this->birthday,
             'sex' => $this->sex,
@@ -174,13 +216,49 @@ class Patients extends Component
             'phone' => $this->phone,
             'civil_state' => $this->civil_state,
             'education' => $this->education,
-            'ocupation' => $this->ocupation,
             'condition' => $this->condition,
             'last_work' => $this->last_work,
-            'origin' => $this->origin,
             'code' => $this->code,
-            'status' => $this->status
+            'status' => $this->status,
         ]);
+
+        if ($this->sign)
+        {
+            $customFileName = uniqid() . '_.' . $this->sign->extension();
+            $this->sign->storeAs('public/firma_paciente', $customFileName);
+            $imageName = $patient->sign;
+
+            $patient->sign = $customFileName;
+            $patient->save();
+
+            if ($imageName != null)
+            {
+                if (file_exists('storage/firma_paciente/' . $imageName))
+                {
+                    unlink('storage/firma_paciente/' . $imageName);
+                }
+            }
+        }
+
+        if ($this->fingerprint)
+        {
+            $customFileName2 = uniqid() . '_.' . $this->fingerprint->extension();
+            $this->fingerprint->storeAs('public/huella_paciente', $customFileName2);
+            $imageName2 = $patient->fingerprint;
+
+            $patient->fingerprint = $customFileName2;
+            $patient->save();
+
+            if ($imageName2 != null)
+            {
+                if (file_exists('storage/huella_paciente/' . $imageName2))
+                {
+                    unlink('storage/huella_paciente/' . $imageName2);
+                }
+            }
+        }
+
+
 
         $this->resetUI();
         $this->emit('patient-updated', 'Paciente Actualizado');

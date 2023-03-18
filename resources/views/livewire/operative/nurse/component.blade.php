@@ -48,7 +48,7 @@
                         @foreach($nurses as $nurse)
                             <tr>
                                 <td class="text-center">{{ $nurse->id }}</td>
-                                <td class="text-center">{{ $nurse->patient->lastname }}, {{ $nurse->patient->name }}</td>
+                                <td class="text-center">{{ $nurse->patient->surname }}</td>
                                 <td class="text-center">{{ $nurse->module->name }}</td>
                                 <td class="text-center">{{ $nurse->session->name }}</td>
                                 <td class="text-center">

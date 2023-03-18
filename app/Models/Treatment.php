@@ -18,6 +18,21 @@ class Treatment extends Model
 
     public function patient()
     {
-        $this->belongsTo(Patient::class);
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -3,6 +3,8 @@
 <div class="row">
     <input type="hidden" wire:model="patientId" class="form-control uppercase" disabled>
     @if($selected_id < 1)
+
+
         <div class="col-xl-3">
             <div class="form-group">
                 <label class="control-label">DNI:</label>
@@ -20,19 +22,43 @@
 
         <div class="col-xl-4">
             <div class="form-group">
-                <label class="control-label">NOMBRES:</label>
+                <label class="control-label">PRIMER NOMBRE:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-edit"></i></div>
                     </div>
-                    <input type="text" wire:model="name" class="form-control uppercase" readonly>
+                    <input type="text" wire:model="firstname" class="form-control uppercase" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="form-group">
+                <label class="control-label">OTROS NOMBRES:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                    </div>
+                    <input type="text" wire:model="secondname" class="form-control uppercase" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="form-group">
+                <label class="control-label">APELLIDO PATERNO:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                    </div>
+                    <input type="text" wire:model="surname" class="form-control uppercase" readonly>
                 </div>
             </div>
         </div>
 
         <div class="col-xl-5">
             <div class="form-group">
-                <label class="control-label">APELLIDOS:</label>
+                <label class="control-label">APELLIDO MATERNO:</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-edit"></i></div>

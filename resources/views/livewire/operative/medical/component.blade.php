@@ -48,7 +48,7 @@
                         @foreach($medicals as $medical)
                             <tr>
                                 <td class="text-center">{{ $medical->id }}</td>
-                                <td class="text-center">{{ $medical->patient->lastname }}, {{ $medical->patient->name }}</td>
+                                <td class="text-center">{{ $medical->patient->surname }}, {{ $medical->patient->lastname }}</td>
                                 <td class="text-center">{{ $medical->module->name }}</td>
                                 <td class="text-center">{{ $medical->session->name }}</td>
                                 <td class="text-center">
@@ -82,27 +82,22 @@
         window.livewire.on('show-modal', msg => {
             $('#theModal').modal('show')
         });
-
         window.livewire.on('medical-added', msg => {
             $('#theModal').modal('hide')
             noty(msg)
         });
-
         window.livewire.on('mnt-withmedicals', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
-
         window.livewire.on('medical-exists', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
-
         window.livewire.on('medical-updated', msg => {
             $('#theModal').modal('hide')
         });
     });
-
     function Confirm(id, medicals)
     {
         swal({

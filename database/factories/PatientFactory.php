@@ -15,7 +15,9 @@ class PatientFactory extends Factory
     {
         return [
             'dni' => $this->faker->unique()->randomNumber(8),
-            'name' => $this->faker->firstName(),
+            'firstname' => $this->faker->firstName(),
+            'secondname' => $this->faker->name(),
+            'surname' => $this->faker->lastName(),
             'lastname' => $this->faker->lastName(),
             'birthday' => $this->faker->date(),
             'sex' => $this->faker->randomElement(['M', 'F']),
@@ -24,11 +26,8 @@ class PatientFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'civil_state' => $this->faker->randomElement(['CASADO', 'SOLTERO', 'CONVIVIENTE', 'DIVORCIADO']),
             'education' => $this->faker->randomElement(['ANALFABETO', 'SECUNDARIA COMPLETA', 'TECNICO COMPLETO', 'UNIVERSITARIO COMPLETO']),
-            'ocupation' => $this->faker->jobTitle(),
             'condition' => $this->faker->paragraph(1),
-            'last_work' => $this->faker->date(),
-            'origin' => $this->faker->city(),
-            'code' => $this->faker->randomNumber(8)
+            'code' => '2-' . $this->faker->randomNumber(8)
         ];
     }
 }

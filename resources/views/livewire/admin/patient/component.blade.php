@@ -49,7 +49,8 @@
                             <tr>
                                 <td class="text-center">{{ $patient->id }}</td>
                                 <td class="text-center">{{ $patient->dni }}</td>
-                                <td class="text-center">{{ $patient->name }}</td>
+                                <td class="text-center">{{ $patient->firstname }}, {{ $patient->secondname }}</td>
+                                <td class="text-center">{{ $patient->surname }}, {{ $patient->lastname }}</td>
                                 <td class="text-center">{{ $patient->lastname }}</td>
                                 <td class="text-center">{{ $patient->phone }}</td>
                                 <td class="text-center">{{ $patient->code }}</td>

@@ -21,11 +21,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'status',
         'profile',
-        'place'
+        'place',
+        'sign',
+
     ];
 
     /**
@@ -46,4 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function treatments()
+    {
+        return $this->hasMany(Treatment::class);
+    }
 }

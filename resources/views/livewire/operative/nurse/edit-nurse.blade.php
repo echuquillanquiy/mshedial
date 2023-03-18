@@ -24,10 +24,10 @@
                             <div class="form-group">
                                 <label class="control-label">H.CL:</label>
                                 <div class="input-group">
-                                    <input wire:model="hcl" type="text" class="form-control" required>
+                                    <input wire:model="hcl" type="text" class="form-control" required readonly>
                                 </div>
                                 @error('hcl')
-                                <span class="text-danger er">{{ $message }}</span>
+                                    <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="form-group">
                                 <label class="control-label">P.A. Inicial:</label>
                                 <div class="input-group">
-                                    <input wire:model="start_pa" type="text" class="form-control" required>
+                                    <input wire:model="start_pa" type="text" class="form-control" required readonly>
                                 </div>
                                 @error('start_pa')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -124,7 +124,7 @@
                             <div class="form-group">
                                 <label class="control-label">Peso Inicial:</label>
                                 <div class="input-group">
-                                    <input wire:model="start_weight" type="text" class="form-control" required>
+                                    <input wire:model="start_weight" type="text" class="form-control" required readonly>
                                 </div>
                                 @error('start_weight')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -188,7 +188,7 @@
                             <div class="form-group">
                                 <label class="control-label">UF:</label>
                                 <div class="input-group">
-                                    <input wire:model="uf" type="text" class="form-control" required>
+                                    <input wire:model="uf" type="text" class="form-control" required readonly>
                                 </div>
                                 @error('uf')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -196,28 +196,36 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-12 mx-auto">
+                        <div class="col-xl-3">
                             <div class="form-group">
-                                <label class="control-label">ARTERIAL:</label>
-                                <div class="input-group">
-                                    <input wire:model="access_arterial" type="text" class="form-control" required>
-                                </div>
-                                @error('access_arterial')
-                                <span class="text-danger er">{{ $message }}</span>
-                                @enderror
+                                <label>ACCESO ARTERIAL</label>
+                                <select wire:model.lazy="access_arterial" class="form-control">
+                                    <option value="FAV">FAV</option>
+                                    <option value="INJ">INJ</option>
+                                    <option value="CVCL">CVCL</option>
+                                    <option value="CVCLP">CVCLP</option>
+                                    <option value="CVCT">CVCT</option>
+                                </select>
                             </div>
+                            @error('access_arterial')
+                                <span class="text-danger er">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <div class="col-lg-3 col-12 mx-auto">
+                        <div class="col-xl-3">
                             <div class="form-group">
-                                <label class="control-label">VENOSO:</label>
-                                <div class="input-group">
-                                    <input wire:model="access_venoso" type="text" class="form-control" required>
-                                </div>
-                                @error('access_venoso')
-                                <span class="text-danger er">{{ $message }}</span>
-                                @enderror
+                                <label>ACCESO VENOSO</label>
+                                <select wire:model.lazy="access_venoso" class="form-control">
+                                    <option value="FAV">FAV</option>
+                                    <option value="INJ">INJ</option>
+                                    <option value="CVCL">CVCL</option>
+                                    <option value="CVCLP">CVCLP</option>
+                                    <option value="CVCT">CVCT</option>
+                                </select>
                             </div>
+                            @error('access_venoso')
+                                <span class="text-danger er">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-lg-2 col-12 mx-auto">
@@ -348,12 +356,12 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-3 col-12">
+                        <div class="col-lg-4 col-12">
                             <button type="button" wire:click.prevent="Update()" class="btn btn-secondary btn-block">GUARDAR</button>
                         </div>
 
-                        <div class="col-lg-3 col-12">
-                            <a href="{{ route('nurse.index') }}" class="btn btn-danger btn-block">REGRESAR</a>
+                        <div class="col-lg-4 col-12">
+                            <a href="{{ route('nurse.index') }}" class="btn btn-info btn-block">LISTADO</a>
                         </div>
                     </div>
                 </div>

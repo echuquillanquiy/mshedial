@@ -17,9 +17,10 @@ class CreateMedicalsTable extends Migration
             $table->id();
 
             $table->foreignId('order_id')->constrained()->onUpdate('cascade');
-            $table->foreignId('patient_id')->constrained()->onUpdate('cascade');;
-            $table->foreignId('module_id')->constrained()->onUpdate('cascade');;
-            $table->foreignId('session_id')->constrained()->onUpdate('cascade');;
+            $table->foreignId('patient_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('module_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('session_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade');
 
             $table->string('hour_hd')->nullable();
             $table->string('heparin')->nullable();

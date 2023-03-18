@@ -16,7 +16,7 @@ class EditMedical extends Component
 
     public $name, $lastname, $module, $session, $medical;
 
-    public $select_id, $hour_hd, $heparin, $dry_weight, $start_weight, $uf, $qb, $qd, $bicarbonat, $cnd, $start_na, $end_na, $start_pa, $profile_na, $profile_uf, $area_filter, $membrane, $clinical_trouble, $fc, $evaluation, $end_evaluation, $start_hour, $end_hour, $indications, $signal;
+    public $select_id, $hour_hd, $heparin, $user_id,$dry_weight, $start_weight, $uf, $qb, $qd, $bicarbonat, $cnd, $start_na, $end_na, $start_pa, $profile_na, $profile_uf, $area_filter, $membrane, $clinical_trouble, $fc, $evaluation, $end_evaluation, $start_hour, $end_hour, $indications, $signal;
 
     public function mount($medical)
     {
@@ -26,31 +26,31 @@ class EditMedical extends Component
         $this->module = $medical->module->name;
         $this->session = $medical->session->name;
 
-        $this->hour_hd = $medical->hour_hd;
-        $this->heparin = $medical->heparin;
+        $this->hour_hd = !$medical->hour_hd ? '3.5' : $medical->hour_hd;
+        $this->heparin = !$medical->heparin ? '5000' : $medical->heparin;
         $this->dry_weight = $medical->dry_weight;
         $this->start_weight = $medical->start_weight;
+        $this->fc = !$medical->fc ? "X' SO2:%" : $medical->fc;
         $this->uf = $medical->uf;
         $this->qb = $medical->qb;
-        $this->qd = $medical->qd;
-        $this->bicarbonat = $medical->bicarbonat;
-        $this->cnd = $medical->cnd;
-        $this->start_na = $medical->start_na;
-        $this->end_na = $medical->end_na;
+        $this->qd = !$medical->qd ? '500' : $medical->qd;
+        $this->bicarbonat = !$medical->bicarbonat ? '3.5' : $medical->bicarbonat;
+        $this->cnd = !$medical->cnd ? '13.8-14.0' : $medical->cnd;
+        $this->start_na = !$medical->start_na ? '138-140' : $medical->start_na;
+        $this->end_na = !$medical->end_na ? '138-140' : $medical->end_na;
         $this->start_pa = $medical->start_pa;
-        $this->profile_na = $medical->profile_na;
-        $this->profile_uf = $medical->profile_uf;
-        $this->area_filter = $medical->area_filter;
-        $this->membrane = $medical->membrane;
-        $this->clinical_trouble = $medical->clinical_trouble;
-        $this->fc = $medical->fc;
-        $this->evaluation = $medical->evaluation;
-        $this->end_evaluation = $medical->end_evaluation;
+        $this->profile_na = !$medical->profile_na ? 'PERFIL L' : $medical->profile_na;
+        $this->profile_uf = !$medical->profile_uf ? 'PERFIL L' : $medical->profile_uf;
+        $this->area_filter = !$medical->area_filter ? '1.9' : $medical->area_filter;
+        $this->membrane = !$medical->membrane ? 'PSF' : $medical->membrane;
+        $this->clinical_trouble = !$medical->clinical_trouble ? 'ERC-5 HD' : $medical->clinical_trouble;
+        $this->evaluation = !$medical->evaluation ? 'EDEMAS:(-) TYP:MV AUDIBLE NO RA' : $medical->evaluation;
+        $this->end_evaluation = !$medical->end_evaluation ? 'SIN COMPLICACIONES' : $medical->end_evaluation;
         $this->start_hour = $medical->start_hour;
         $this->end_hour = $medical->end_hour;
         $this->indications = $medical->indications;
-        $this->signal = $medical->signal;
-
+        $this->signal = !$medical->signal ? 'ASINTOMATICO' : $medical->signal;
+        $this->user_id = $medical->user_id;
 
     }
 
@@ -82,9 +82,6 @@ class EditMedical extends Component
             'fc' => 'required',
             'evaluation' => 'required',
             'end_evaluation' => 'required',
-            'start_hour' => 'required',
-            'end_hour' => 'required',
-            'indications' => 'required',
             'signal' => 'required',
         ];
 
@@ -109,9 +106,6 @@ class EditMedical extends Component
             'fc.required' => 'Coloque Frecuencia Cardiaca.',
             'evaluation.required' => 'Es necesaria la Evaluacion.',
             'end_evaluation.required' => 'Rellle la evaluacion final.',
-            'start_hour.required' => 'Seleccione hora  Inicio.',
-            'end_hour.required' => 'Seleccione hora Final',
-            'indications.required' => 'Son necesarias las indicaciones',
             'signal.required' => 'Coloque Signos y Sintomas.',
         ];
 
@@ -144,6 +138,7 @@ class EditMedical extends Component
             'end_hour' => $this->end_hour,
             'indications' => $this->indications,
             'signal' => $this->signal,
+            'user_id' => auth()->user()->id
         ]);
 
         $this->emit('medical-updated', 'SE REALIZO EL CORRECTO GUARDADO DE DATOS');

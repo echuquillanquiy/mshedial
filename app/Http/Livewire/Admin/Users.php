@@ -7,13 +7,15 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
+use Livewire\WithFileUploads;
 
 
 class Users extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
-    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $name, $email, $status, $password, $profile, $place;
+    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $name, $email, $status, $password, $profile, $place, $sign, $username;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -47,12 +49,14 @@ class Users extends Component
     public function resetUI()
     {
         $this->name = '';
+        $this->username='';
         $this->email = '';
         $this->password = '';
         $this->search = '';
         $this->status = 'Elegir';
         $this->selected_id = 0;
         $this->place = 'Elegir';
+        $this->sign = null;
         $this->resetValidation();
     }
 
@@ -60,10 +64,12 @@ class Users extends Component
     {
         $this->selected_id = $user->id;
         $this->name = $user->name;
+        $this->username = $user->username;
         $this->email = $user->email;
         $this->profile = $user->profile;
         $this->status = $user->status;
         $this->place = $user->place;
+        $this->sign = $user->sign;
         $this->password = '';
 
         $this->emit('show-modal', 'Show Modal!');
@@ -78,6 +84,7 @@ class Users extends Component
     {
         $rules = [
             'name' => 'required|min:3',
+            'username' => 'required|min:3',
             'email' => 'required|unique:users|email',
             'status' => 'required|not_in:Elegir',
             'profile' => 'required|not_in:Elegir',
@@ -85,8 +92,10 @@ class Users extends Component
         ];
 
         $messages = [
-            'name.required' => 'Ingresa el nombre.',
-            'name.min' => 'El nombre del usuario debe tener al menos 3 caracteres.',
+            'name.required' => 'Ingresa los nombres y apellidos.',
+            'name.min' => 'Los nombres debe tener al menos 3 caracteres.',
+            'username.required' => 'Ingresa el nombre de usuario.',
+            'username.min' => 'El nombre de usuario debe tener al menos 3 caracteres.',
             'email.required' => 'Ingrese el válido.',
             'email.email' => 'Ingrese un correo válido.',
             'email.unique' => 'El correo ya existe en el sistema.',
@@ -102,12 +111,21 @@ class Users extends Component
 
         $user = User::create([
             'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
             'status' => $this->status,
             'profile' => $this->profile,
             'place' => $this->place,
             'password' => bcrypt($this->password)
         ]);
+
+        if ($this->sign)
+        {
+            $customFileName = uniqid() . '_.' . $this->sign->extension();
+            $this->sign->storeAs('public/firma_especialistas', $customFileName);
+            $user->sign = $customFileName;
+            $user->save();
+        }
 
         $user->syncRoles($this->profile);
 
@@ -144,6 +162,7 @@ class Users extends Component
         if ($this->password)
             $user->update([
                 'name' => $this->name,
+                'username' => $this->username,
                 'email' => $this->email,
                 'status' => $this->status,
                 'profile' => $this->profile,
@@ -158,6 +177,24 @@ class Users extends Component
                 'profile' => $this->profile,
                 'place' => $this->place,
             ]);
+
+        if ($this->sign)
+        {
+            $customFileName = uniqid() . '_.' . $this->sign->extension();
+            $this->sign->storeAs('public/firma_especialistas', $customFileName);
+            $imageName = $user->image;
+
+            $user->sign = $customFileName;
+            $user->save();
+
+            if ($imageName != null)
+            {
+                if (file_exists('storage/firma_especialistas/' . $imageName))
+                {
+                    unlink('storage/firma_especialistas/' . $imageName);
+                }
+            }
+        }
 
         $user->syncRoles($this->profile);
 

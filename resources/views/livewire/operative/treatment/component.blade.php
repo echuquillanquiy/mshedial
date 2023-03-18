@@ -6,9 +6,6 @@
                 <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">{{ $componentName }}</a></li>
             </ol>
         </nav>
-        <div class="dropdown filter custom-dropdown-icon">
-            <a href="javascript:void(0);" class="btn btn-success" data-toggle="modal" data-target="#theModal"><i class="fas fa-flask"></i> Nueva Orden</a>
-        </div>
     </div>
 
     <div class="row">
@@ -34,40 +31,42 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-one">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-btreatmented table-hover">
                         <thead>
                         <tr class="text-center">
                             <th>#</th>
                             <th>PACIENTE (Apellidos y Nombres)</th>
                             <th>MODULO</th>
                             <th>TURNO</th>
-                            <th>PACIENTE COVID</th>
                             <th>FECHA DE REGISTRO</th>
-                            <th class="text-center">Opciones</th>
+                            <th>LICENCIADO</th>
+                            <th class="text-center">HISTORIA</th>
+                            <th class="text-center">Referencia</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($orders as $order)
+                        @foreach($treatments as $treatment)
                             <tr>
-                                <td class="text-center">{{ $order->id }}</td>
-                                <td class="text-center">{{ $order->patient->lastname }}, {{ $order->patient->surname }}, {{ $order->patient->secondname }}, {{ $order->patient->firstname }}</td>
-                                <td class="text-center">{{ $order->module->name }}</td>
-                                <td class="text-center">{{ $order->session->name }}</td>
-                                <td class="text-center">{{ $order->covid }}</td>
-                                <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
+                                <td class="text-center">{{ $treatment->id }}</td>
+                                <td class="text-center">{{ $treatment->patient->surname }} {{ $treatment->patient->lastname }}, {{ $treatment->patient->firstname }} {{ $treatment->patient->secondname }}</td>
+                                <td class="text-center">{{ $treatment->module->name }}</td>
+                                <td class="text-center">{{ $treatment->session->name }}</td>
+                                <td class="text-center">{{ $treatment->created_at->format('Y-m-d') }}</td>
+                                <td class="text-center">{{ $treatment->user->name }}</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0);" wire:click="Edit({{ $order->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
-
-                                    <a href="javascript:void(0);"  onclick="Confirm('{{ $order->id }}')" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fas fa-trash-alt text-danger fa-lg btn btn-outline-danger"></i></a>
+                                    <a href="{{ route('treatment.edit', $treatment) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA"><i class="fas fa-stethoscope text-info fa-lg btn btn-outline-info"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA"><i class="fas fa-ambulance text-secondary fa-lg btn btn-outline-secondary"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $orders->links() }}
+                {{ $treatments->links() }}
             </div>
-            @include('livewire.operative.orden.form')
+
         </div>
     </div>
 </div>
@@ -78,27 +77,27 @@
             $('#theModal').modal('show')
         });
 
-        window.livewire.on('order-added', msg => {
+        window.livewire.on('treatment-added', msg => {
             $('#theModal').modal('hide')
             noty(msg)
         });
 
-        window.livewire.on('mnt-withorders', Msg => {
+        window.livewire.on('mnt-withtreatments', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('order-exists', Msg => {
+        window.livewire.on('treatment-exists', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('order-updated', msg => {
+        window.livewire.on('treatment-updated', msg => {
             $('#theModal').modal('hide')
         });
     });
 
-    function Confirm(id, orders)
+    function Confirm(id, treatments)
     {
         swal({
             title: 'CONFIRMAR',

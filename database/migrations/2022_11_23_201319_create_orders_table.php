@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('patient_id');
             $table->foreignId('module_id');
             $table->foreignId('session_id');
+            $table->foreignId('user_id');
             $table->enum('covid', ['SI', 'NO'])->default('NO');
 
             $table->timestamps();

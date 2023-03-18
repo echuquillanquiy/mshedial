@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Operative;
 
+use App\Http\Controllers\Operativo\OrderController;
 use App\Models\Medical;
 use App\Models\Module;
 use App\Models\Nurse;
@@ -17,7 +18,7 @@ class Orders extends Component
 {
     use WithPagination;
 
-    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $patientId, $moduleId, $sessionId, $covid, $dni = null, $name = null, $dateFilter, $moduleSelected, $sessionSelected, $created_at;
+    public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $user_id, $patientId, $moduleId, $sessionId, $covid, $dni = null, $firstname = null, $secondname = null, $surname = null, $lastname = null, $dateFilter, $moduleSelected, $sessionSelected, $created_at;
 
     public function mount()
     {
@@ -40,7 +41,6 @@ class Orders extends Component
 
     public function render()
     {
-        $patients = Patient::all('id', 'name');
         $modules = Module::all('id', 'name');
         $sessions = Session::all('id', 'name');
 
@@ -57,7 +57,7 @@ class Orders extends Component
                 ->paginate($this->pageSelected);
 
 
-        return view('livewire.operative.orden.component', compact('orders', 'patients', 'modules', 'sessions'));
+        return view('livewire.operative.orden.component', compact('orders', 'modules', 'sessions'));
     }
 
     public function consultDni()
@@ -69,7 +69,9 @@ class Orders extends Component
         if ($patient)
         {
             $this->patientId = $patient->id;
-            $this->name = $patient->name;
+            $this->firstname = $patient->firstname;
+            $this->secondname = $patient->secondname;
+            $this->surname = $patient->surname;
             $this->lastname = $patient->lastname;
         }else{
             $this->emit('show-patient-inactive', 'no hay datos coincidentes o el paciente esta inactivo');
@@ -117,14 +119,16 @@ class Orders extends Component
             'module_id' => $this->moduleId,
             'session_id' => $this->sessionId,
             'covid' => $this->covid,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ]);
 
         $data = [
             'order_id' => $order->id,
             'patient_id' => $order->patient_id,
             'module_id' => $order->module_id,
-            'session_id' => $order->session_id
+            'session_id' => $order->session_id,
+            'user_id' => $order->user_id,
+            'created_at' => $order->created_at,
         ];
 
         $nurse = $order->nurse()->create($data);

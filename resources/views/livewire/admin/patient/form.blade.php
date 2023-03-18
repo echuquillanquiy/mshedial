@@ -1,14 +1,14 @@
 @include('common.modalHead')
 
 <div class="row">
-    <div class="col-xl-3">
+    <div class="col-xl-4">
         <div class="form-group">
             <label class="control-label">DNI:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fas fa-edit"></i></div>
                 </div>
-                <input type="text" wire:model.lazy="dni" class="form-control" >
+                <input type="text" wire:model.lazy="dni" wire:keydown="filiation()" class="form-control" >
             </div>
             @error('dni')
                 <span class="text-danger er">{{ $message }}</span>
@@ -19,24 +19,58 @@
 
     <div class="col-xl-4">
         <div class="form-group">
-            <label class="control-label">NOMBRES:</label>
+            <label class="control-label">PRIMER NOMBRE:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fas fa-edit"></i></div>
                 </div>
-                <input type="text" wire:model.lazy="name" class="form-control" >
+                <input type="text" wire:model.lazy="firstname" class="form-control" >
             </div>
 
-            @error('name')
+            @error('firstname')
             <span class="text-danger er">{{ $message }}</span>
             @enderror
 
         </div>
     </div>
 
-    <div class="col-xl-5">
+    <div class="col-xl-4">
         <div class="form-group">
-            <label class="control-label">APELLIDOS:</label>
+            <label class="control-label">OTROS NOMBRES:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                </div>
+                <input type="text" wire:model.lazy="secondname" class="form-control" >
+            </div>
+
+            @error('secondname')
+                <span class="text-danger er">{{ $message }}</span>
+            @enderror
+
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="form-group">
+            <label class="control-label">APELLIDO PATERNO:</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
+                </div>
+                <input type="text" wire:model.lazy="surname" class="form-control" >
+            </div>
+
+            @error('surname')
+                <span class="text-danger er">{{ $message }}</span>
+            @enderror
+
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="form-group">
+            <label class="control-label">APELLIDO MATERNO:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fas fa-edit"></i></div>
@@ -45,13 +79,13 @@
             </div>
 
             @error('lastname')
-                <span class="text-danger er">{{ $message }}</span>
+            <span class="text-danger er">{{ $message }}</span>
             @enderror
 
         </div>
     </div>
 
-    <div class="col-xl-3">
+    <div class="col-xl-4">
         <div class="form-group mb-4">
             <label class="control-label">FECHA DE NACIMIENTO:</label>
             <div class="input-group">
@@ -95,7 +129,7 @@
         </div>
     </div>
 
-    <div class="col-xl-5">
+    <div class="col-xl-4">
         <div class="form-group">
             <label class="control-label">DIRECCION ACTUAL:</label>
             <div class="input-group">
@@ -112,7 +146,7 @@
         </div>
     </div>
 
-    <div class="col-xl-3">
+    <div class="col-xl-4">
         <div class="form-group">
             <label class="control-label">N° CELULAR:</label>
             <div class="input-group">
@@ -129,7 +163,7 @@
         </div>
     </div>
 
-    <div class="col-xl-4">
+    <div class="col-xl-3">
         <div class="form-group">
             <label>ESTADO CIVIL:</label>
             <select wire:model.lazy="civil_state" class="form-control">
@@ -199,40 +233,6 @@
         </div>
     </div>
 
-    <div class="col-xl-5">
-        <div class="form-group">
-            <label class="control-label">HOSPITAL DE ORIGEN:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
-                </div>
-                <input type="text" wire:model.lazy="origin" class="form-control" >
-            </div>
-
-            @error('origin')
-            <span class="text-danger er">{{ $message }}</span>
-            @enderror
-
-        </div>
-    </div>
-
-    <div class="col-xl-4">
-        <div class="form-group">
-            <label class="control-label">OCUPACION ACTUAL:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="fas fa-edit"></i></div>
-                </div>
-                <input type="text" wire:model.lazy="ocupation" class="form-control" >
-            </div>
-
-            @error('ocupation')
-            <span class="text-danger er">{{ $message }}</span>
-            @enderror
-
-        </div>
-    </div>
-
     <div class="col-xl-6">
         <div class="form-group">
             <label class="control-label">CODIGO (AUTOGENERADO):</label>
@@ -250,7 +250,7 @@
         </div>
     </div>
 
-    <div class="col-xl-2">
+    <div class="col-xl-3">
         <div class="form-group">
             <label>ESTADO:</label>
             <select wire:model.lazy="status" class="form-control">
@@ -261,6 +261,26 @@
         @error('status')
         <span class="text-danger er">{{ $message }}</span>
         @enderror
+    </div>
+
+    <div class="col-sm-6 mt-3">
+        <div class="form-group custom-file">
+            <input type="file" class="custom-file-input form-control" wire:model="sign" accept="image/png, image/gif, image/jpeg">
+            <label class="custom-file-label">FIRMA {{ $sign }}</label>
+            @error('sign')
+            <span class="text-danger er">{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="col-sm-6 mt-3">
+        <div class="form-group custom-file">
+            <input type="file" class="custom-file-input form-control" wire:model="fingerprint" accept="image/png, image/gif, image/jpeg">
+            <label class="custom-file-label">HUELLA {{ $fingerprint }}</label>
+            @error('fingerprint')
+                <span class="text-danger er">{{ $message }}</span>
+            @enderror
+        </div>
     </div>
 
 </div>

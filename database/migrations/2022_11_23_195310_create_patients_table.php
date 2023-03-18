@@ -17,20 +17,21 @@ class CreatePatientsTable extends Migration
             $table->id();
 
             $table->string('dni')->unique();
-            $table->string('name');
+            $table->string('firstname');
+            $table->string('secondname');
+            $table->string('surname');
             $table->string('lastname');
-            $table->date('birthday');
-            $table->string('sex');
-            $table->string('age');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('civil_state');
-            $table->string('education');
-            $table->string('ocupation');
-            $table->string('condition');
-            $table->date('last_work');
-            $table->string('origin');
-            $table->string('code');
+            $table->date('birthday')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('age')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('civil_state')->nullable();
+            $table->string('education')->nullable();
+            $table->string('condition')->nullable();
+            $table->string('code')->unique()->nullable();
+            $table->string('sign')->nullable();
+            $table->string('fingerprint')->nullable();
             $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
 
             $table->timestamps();

@@ -2,7 +2,7 @@
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $name }}, {{ $lastname }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $medical->patient->surname }} {{ $medical->patient->lastname }}, {{ $medical->patient->firstname }} {{ $medical->patient->secondname }}</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a href="javascript:void(0);">{{ $module }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">{{ $session }}</a></li>
             </ol>

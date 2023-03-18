@@ -20,6 +20,7 @@ class CreateNursesTable extends Migration
             $table->foreignId('patient_id')->constrained()->onUpdate('cascade');
             $table->foreignId('module_id')->constrained()->onUpdate('cascade');
             $table->foreignId('session_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade');
 
             $table->integer('hcl')->nullable();
             $table->string('frequency')->nullable();

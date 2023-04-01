@@ -32,8 +32,8 @@ class Medicals extends Component
     {
         if ($this->search || $this->dateFilter)
             $medicals = Medical::join('patients as pat', 'pat.id', 'medicals.patient_id')
-                    ->select('medicals.*', 'pat.lastname as apellidos', 'medicals.created_at as fecha')
-                    ->where('pat.lastname', 'LIKE', '%' . $this->search . '%')
+                    ->select('medicals.*', 'pat.surname as apellidos', 'medicals.created_at as fecha')
+                    ->where('pat.surname', 'LIKE', '%' . $this->search . '%')
                     ->whereDate('medicals.created_at', $this->dateFilter)
                     ->orderBy('id', 'desc')
                     ->paginate($this->pageSelected);

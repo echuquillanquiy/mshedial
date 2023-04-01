@@ -50,8 +50,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function treatments()
+    public function treatment()
     {
-        return $this->hasMany(Treatment::class);
+        return $this->belongsTo(Treatment::class);
+    }
+
+    public function fua()
+    {
+        return $this->belongsTo(Fua::class);
     }
 }

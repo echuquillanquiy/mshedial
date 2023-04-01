@@ -34,7 +34,8 @@ class Patients extends Component
     {
         if ($this->search)
             $patients = Patient::orderBy('id', 'asc')
-                ->where('name', 'LIKE', '%' . $this->search . '%')
+                ->where('surname', 'LIKE', '%' . $this->search . '%')
+                ->orWhere('dni', 'LIKE', '%' . $this->search . '%')
                 ->paginate($this->pageSelected);
         else
             $patients = Patient::orderBy('id', 'asc')

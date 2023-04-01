@@ -48,7 +48,7 @@
                         @foreach($medicals as $medical)
                             <tr>
                                 <td class="text-center">{{ $medical->id }}</td>
-                                <td class="text-center">{{ $medical->patient->surname }}, {{ $medical->patient->lastname }}</td>
+                                <td class="text-center">{{ $medical->patient->surname }} {{ $medical->patient->lastname }}, {{ $medical->patient->firstname }} {{ $medical->patient->secondname }} </td>
                                 <td class="text-center">{{ $medical->module->name }}</td>
                                 <td class="text-center">{{ $medical->session->name }}</td>
                                 <td class="text-center">
@@ -60,10 +60,10 @@
                                 </td>
                                 <td class="text-center">{{ $medical->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('historia.medica', $medical) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA"><i class="fas fa-stethoscope text-info fa-lg btn btn-outline-info"></i></a>
+                                    <a href="{{ route('historia.medica', $medical) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA" target="_blank"><i class="fas fa-stethoscope text-info fa-lg btn btn-outline-info"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA"><i class="fas fa-ambulance text-secondary fa-lg btn btn-outline-secondary"></i></a>
+                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA" target="_blank"><i class="fas fa-ambulance text-secondary fa-lg btn btn-outline-secondary"></i></a>
                                 </td>
                             </tr>
                         @endforeach

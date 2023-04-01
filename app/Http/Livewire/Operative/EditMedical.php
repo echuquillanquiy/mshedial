@@ -6,31 +6,47 @@ use App\Models\Medical;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Monolog\Handler\IFTTTHandler;
 
 class EditMedical extends Component
 {
-
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-
     public $name, $lastname, $module, $session, $medical;
 
-    public $select_id, $hour_hd, $heparin, $user_id,$dry_weight, $start_weight, $uf, $qb, $qd, $bicarbonat, $cnd, $start_na, $end_na, $start_pa, $profile_na, $profile_uf, $area_filter, $membrane, $clinical_trouble, $fc, $evaluation, $end_evaluation, $start_hour, $end_hour, $indications, $signal;
+    public $select_id, $hour_hd, $heparin, $user_id,$dry_weight, $start_weight, $uf, $qb, $qd, $bicarbonat, $cnd, $start_na, $end_na, $start_pa, $profile_na, $profile_uf, $area_filter, $membrane, $clinical_trouble, $fc, $evaluation, $end_evaluation, $start_hour, $end_hour, $indications, $signal, $calci, $so2;
+    public $epo2000, $epo4000, $vitb12, $iron;
 
     public function mount($medical)
     {
+        $idpaciente = $medical->patient_id;
+        $fecha = Carbon::now();
+
+        $medicamentos = $medical->where('patient_id', $idpaciente)->where(function ($query) use ($fecha) {
+            $query->where('created_at', '!=', $fecha)
+                ->orWhereNull('created_at');
+        })->orderBy('created_at', 'desc')->value('dry_weight', 'epo2000', 'epo4000', 'vitb12', 'iron', 'calci');
+
+
         $this->select_id = $medical->id;
-        $this->name = $medical->patient->name;
-        $this->lastname = $medical->patient->lastname;
         $this->module = $medical->module->name;
         $this->session = $medical->session->name;
 
         $this->hour_hd = !$medical->hour_hd ? '3.5' : $medical->hour_hd;
         $this->heparin = !$medical->heparin ? '5000' : $medical->heparin;
-        $this->dry_weight = $medical->dry_weight;
+
+        $this->dry_weight = $medicamentos ? $medical->dry_weight : 0;
+
+        $this->epo2000 = $medicamentos ? $medical->epo2000 : 0;
+        $this->epo4000 = $medicamentos ? $medical->epo4000 : 0;
+        $this->vitb12 = $medicamentos ? $medical->vitb12 : 0;
+        $this->iron = $medicamentos ? $medical->iron : 0;
+        $this->calci = $medicamentos ? $medical->calci : 0;
+
         $this->start_weight = $medical->start_weight;
-        $this->fc = !$medical->fc ? "X' SO2:%" : $medical->fc;
+        $this->fc = !$medical->fc ? "" : $medical->fc;
+        $this->so2 = !$medical->so2 ? "" : $medical->so2;
         $this->uf = $medical->uf;
         $this->qb = $medical->qb;
         $this->qd = !$medical->qd ? '500' : $medical->qd;
@@ -46,12 +62,11 @@ class EditMedical extends Component
         $this->clinical_trouble = !$medical->clinical_trouble ? 'ERC-5 HD' : $medical->clinical_trouble;
         $this->evaluation = !$medical->evaluation ? 'EDEMAS:(-) TYP:MV AUDIBLE NO RA' : $medical->evaluation;
         $this->end_evaluation = !$medical->end_evaluation ? 'SIN COMPLICACIONES' : $medical->end_evaluation;
-        $this->start_hour = $medical->start_hour;
+        $this->start_hour = Carbon::now()->format('G:i');
         $this->end_hour = $medical->end_hour;
         $this->indications = $medical->indications;
         $this->signal = !$medical->signal ? 'ASINTOMATICO' : $medical->signal;
         $this->user_id = $medical->user_id;
-
     }
 
     public function render()
@@ -80,6 +95,7 @@ class EditMedical extends Component
             'membrane' => 'required',
             'clinical_trouble' => 'required',
             'fc' => 'required',
+            'so2' => 'required',
             'evaluation' => 'required',
             'end_evaluation' => 'required',
             'signal' => 'required',
@@ -103,7 +119,8 @@ class EditMedical extends Component
             'area_filter.required' => 'Coloque Area y Filtro.',
             'membrane.required' => 'Coloque Membrana.',
             'clinical_trouble.required' => 'Ingrese problemas Clinicos.',
-            'fc.required' => 'Coloque Frecuencia Cardiaca.',
+            'fc.required' => 'Falta FC.',
+            'so2.required' => 'Falta SO2.',
             'evaluation.required' => 'Es necesaria la Evaluacion.',
             'end_evaluation.required' => 'Rellle la evaluacion final.',
             'signal.required' => 'Coloque Signos y Sintomas.',
@@ -138,6 +155,12 @@ class EditMedical extends Component
             'end_hour' => $this->end_hour,
             'indications' => $this->indications,
             'signal' => $this->signal,
+            'epo2000' => $this->epo2000,
+            'epo4000' => $this->epo4000,
+            'vitb12' => $this->vitb12,
+            'iron' => $this->iron,
+            'calci' => $this->calci,
+            'so2' => $this->so2,
             'user_id' => auth()->user()->id
         ]);
 

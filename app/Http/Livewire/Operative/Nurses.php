@@ -32,8 +32,8 @@ class Nurses extends Component
     {
         if ($this->search || $this->dateFilter)
             $nurses = Nurse::join('patients as pat', 'pat.id', 'nurses.patient_id')
-                ->select('nurses.*', 'pat.lastname as apellidos', 'nurses.created_at as fecha')
-                ->where('pat.lastname', 'LIKE', '%' . $this->search . '%')
+                ->select('nurses.*', 'pat.surname as apellidos', 'nurses.created_at as fecha')
+                ->where('pat.surname', 'LIKE', '%' . $this->search . '%')
                 ->whereDate('nurses.created_at', $this->dateFilter)
                 ->orderBy('id', 'desc')
                 ->paginate($this->pageSelected);

@@ -29,7 +29,7 @@ class Treatments extends Component
     {
         if ($this->search || $this->dateFilter)
             $treatments = Treatment::join('patients as pat', 'pat.id', 'treatments.patient_id')
-                ->select('treatments.*', 'pat.surname as apellidos', 'treatments.created_at as fecha')
+                ->select('treatments.*', 'pat.surname as ape1', 'pat.lastname as ape2', 'pat.firstname as nom1', 'pat.secondname as nom2', 'treatments.created_at as fecha')
                 ->where('pat.surname', 'LIKE', '%' . $this->search . '%')
                 ->whereDate('treatments.created_at', $this->dateFilter)
                 ->orderBy('created_at', 'desc')

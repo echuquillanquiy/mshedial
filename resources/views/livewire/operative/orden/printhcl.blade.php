@@ -25,13 +25,14 @@
                 <option value="50">50</option>
             </select>
         </div>
+
     </div>
 
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div class="widget widget-one">
                 <div class="table-responsive">
-                    <table class="table table-btreatmented table-hover">
+                    <table class="table table-bordered table-hover">
                         <thead>
                         <tr class="text-center">
                             <th>#</th>
@@ -39,30 +40,32 @@
                             <th>MODULO</th>
                             <th>TURNO</th>
                             <th>FECHA DE REGISTRO</th>
-                            <th>LICENCIADO</th>
-                            <th class="text-center">TTO</th>
+                            <th class="text-center">Imprimir</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($treatments as $treatment)
+                        @foreach($orders as $order)
                             <tr>
-                                <td class="text-center">{{ $treatment->id }}</td>
-                                <td class="text-center">{{ $treatment->patient->surname }} {{ $treatment->patient->lastname }}, {{ $treatment->patient->firstname }} {{ $treatment->patient->secondname }}</td>
-                                <td class="text-center">{{ $treatment->module->name }}</td>
-                                <td class="text-center">{{ $treatment->session->name }}</td>
-                                <td class="text-center">{{ $treatment->created_at->format('Y-m-d') }}</td>
-                                <td class="text-center">{{ $treatment->user->name }}</td>
+                                <td class="text-center">{{ $order->id }}</td>
+                                <td class="text-center">{{ $order->patient->surname }} {{ $order->patient->lastname }}, {{ $order->patient->firstname }} {{ $order->patient->secondname }}</td>
+                                <td class="text-center">{{ $order->module->name }}</td>
+                                <td class="text-center">{{ $order->session->name }}</td>
+                                <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('treatment.edit', $treatment) }}" data-toggle="tooltip" data-placement="top" title="TTO"><i class="fas fa-stethoscope text-info fa-lg btn btn-outline-info"></i></a>
+                                    <div class="n-chk">
+                                        <label class="new-control new-checkbox checkbox-primary">
+                                            <button type="button" class="btn btn-success" wire:click="downloadPdf" wire:loading.attr="disabled"><i class="fas fa-print"></i></button>
+                                        </label>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                {{ $treatments->links() }}
+                {{ $orders->links() }}
             </div>
-
+            @include('livewire.operative.orden.form')
         </div>
     </div>
 </div>
@@ -73,27 +76,27 @@
             $('#theModal').modal('show')
         });
 
-        window.livewire.on('treatment-added', msg => {
+        window.livewire.on('order-added', msg => {
             $('#theModal').modal('hide')
             noty(msg)
         });
 
-        window.livewire.on('mnt-withtreatments', Msg => {
+        window.livewire.on('mnt-withorders', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('treatment-exists', Msg => {
+        window.livewire.on('order-exists', Msg => {
             $('#theModal').modal('hide')
             noty(Msg)
         });
 
-        window.livewire.on('treatment-updated', msg => {
+        window.livewire.on('order-updated', msg => {
             $('#theModal').modal('hide')
         });
     });
 
-    function Confirm(id, treatments)
+    function Confirm(id, orders)
     {
         swal({
             title: 'CONFIRMAR',

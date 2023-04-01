@@ -16,7 +16,7 @@
                     <h3>EVALUACION MEDICA</h3>
                 </div>
 
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center">
 
                     <div class="row">
 
@@ -36,10 +36,15 @@
                             <div class="form-group">
                                 <label class="control-label">HORAS DE HD:</label>
                                 <div class="input-group">
-                                    <input wire:model="hour_hd" type="text" class="form-control" required>
+                                    <select wire:model="hour_hd" class="form-control" required>
+                                        <option value="3.5" selected>3.5</option>
+                                        <option value="3">3</option>
+                                        <option value="3.25">3.25</option>
+                                        <option value="3.75">3.75</option>
+                                    </select>
                                 </div>
                                 @error('hour_hd')
-                                <span class="text-danger er">{{ $message }}</span>
+                                    <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -68,13 +73,25 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-1 col-12 mx-auto">
                             <div class="form-group">
-                                <label class="control-label">FRECUENCIA CARDIACA:</label>
+                                <label class="control-label">FC:</label>
                                 <div class="input-group">
                                     <input wire:model="fc" type="text" class="form-control" required>
                                 </div>
                                 @error('fc')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">SO2%:</label>
+                                <div class="input-group">
+                                    <input wire:model="so2" type="text" class="form-control" required>
+                                </div>
+                                @error('so2')
                                 <span class="text-danger er">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -97,7 +114,7 @@
                     <div class="row">
                         <div class="form-group mb-4 col-lg-3 col-12 mx-auto">
                             <label for="exampleFormControlTextarea1">Problemas Clínicos:</label>
-                            <textarea class="form-control" wire:model="clinical_trouble" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="clinical_trouble" rows="2"></textarea>
 
                             @error('clinical_trouble')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -107,7 +124,7 @@
 
                         <div class="form-group mb-4 col-lg-3 col-12 mx-auto">
                             <label for="exampleFormControlTextarea1">Evaluación</label>
-                            <textarea class="form-control" wire:model="evaluation" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="evaluation" rows="2"></textarea>
 
                             @error('evaluation')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -116,7 +133,7 @@
 
                         <div class="form-group mb-4 col-lg-3 col-12 mx-auto">
                             <label for="exampleFormControlTextarea1">Indicaciones</label>
-                            <textarea class="form-control" wire:model="indications" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="indications" rows="2"></textarea>
 
                             @error('indications')
                                 <span class="text-danger er">{{ $message }}</span>
@@ -125,12 +142,77 @@
 
                         <div class="form-group mb-4 col-lg-3 col-12 mx-auto">
                             <label for="exampleFormControlTextarea1">Signos y Sintomas</label>
-                            <textarea class="form-control" wire:model="signal" rows="3"></textarea>
+                            <textarea class="form-control" wire:model="signal" rows="2"></textarea>
 
                             @error('signal')
                                 <span class="text-danger er">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-2 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">EPO 2000:</label>
+                                <div class="input-group">
+                                    <input wire:model="epo2000" type="number" class="form-control" required>
+                                </div>
+                                @error('epo2000')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">EPO 4000:</label>
+                                <div class="input-group">
+                                    <input wire:model="epo4000" type="number" class="form-control" required>
+                                </div>
+                                @error('epo4000')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">VITAMINA B12:</label>
+                                <div class="input-group">
+                                    <input wire:model="vitb12" type="number" class="form-control" required>
+                                </div>
+                                @error('vitb12')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">HIERRO:</label>
+                                <div class="input-group">
+                                    <input wire:model="iron" type="number" class="form-control" required>
+                                </div>
+                                @error('iron')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-12 mx-auto">
+                            <div class="form-group">
+                                <label class="control-label">CALCITRIOL:</label>
+                                <div class="input-group">
+                                    <input wire:model="calci" type="number" class="form-control" required>
+                                </div>
+                                @error('calci')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="row">

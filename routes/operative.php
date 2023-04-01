@@ -7,8 +7,7 @@ use App\Http\Controllers\Operativo\TreatmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('order', [OrderController::class, 'index'])->name('generar.orden');
-
-
+Route::get('order/print', [OrderController::class, 'printhcl'])->name('generar.impresion');
 
 Route::get('medical', [MedicalController::class, 'index'])->name('atencion.medica');
 Route::get('medicals/{medical}/edit', [MedicalController::class, 'edit'])->name('historia.medica');

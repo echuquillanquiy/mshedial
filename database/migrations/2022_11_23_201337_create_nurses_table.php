@@ -37,10 +37,10 @@ class CreateNursesTable extends Migration
             $table->string('uf')->nullable();
             $table->string('access_arterial')->nullable();
             $table->string('access_venoso')->nullable();
-            $table->string('iron')->nullable();
             $table->string('epo2000')->nullable();
             $table->string('epo4000')->nullable();
             $table->string('hidroxi')->nullable();
+            $table->string('iron')->nullable();
             $table->string('calcitriol')->nullable();
             $table->string('others_med')->nullable();
             $table->text('end_observation')->nullable();

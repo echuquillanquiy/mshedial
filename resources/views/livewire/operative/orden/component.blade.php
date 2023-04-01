@@ -50,7 +50,7 @@
                         @foreach($orders as $order)
                             <tr>
                                 <td class="text-center">{{ $order->id }}</td>
-                                <td class="text-center">{{ $order->patient->lastname }}, {{ $order->patient->surname }}, {{ $order->patient->secondname }}, {{ $order->patient->firstname }}</td>
+                                <td class="text-center">{{ $order->patient->surname }} {{ $order->patient->lastname }}, {{ $order->patient->firstname }} {{ $order->patient->secondname }}</td>
                                 <td class="text-center">{{ $order->module->name }}</td>
                                 <td class="text-center">{{ $order->session->name }}</td>
                                 <td class="text-center">{{ $order->covid }}</td>

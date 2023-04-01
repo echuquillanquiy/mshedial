@@ -19,6 +19,7 @@ class Orders extends Component
     use WithPagination;
 
     public $pageTitle, $componentName, $search, $pageSelected, $selected_id, $user_id, $patientId, $moduleId, $sessionId, $covid, $dni = null, $firstname = null, $secondname = null, $surname = null, $lastname = null, $dateFilter, $moduleSelected, $sessionSelected, $created_at;
+    public $hour_hd;
 
     public function mount()
     {
@@ -46,8 +47,8 @@ class Orders extends Component
 
         if ($this->search || $this->dateFilter)
             $orders = Order::join('patients as pat', 'pat.id', 'orders.patient_id')
-                ->select('orders.*', 'pat.lastname as apellidos', 'orders.created_at as fecha')
-                ->where('pat.lastname', 'LIKE', '%' . $this->search . '%')
+                ->select('orders.*', 'pat.surname as apellidos', 'orders.created_at as fecha')
+                ->where('pat.surname', 'LIKE', '%' . $this->search . '%')
                 ->whereDate('orders.created_at', $this->dateFilter)
                 ->orderBy('id', 'desc')
                 ->paginate($this->pageSelected);
@@ -83,7 +84,9 @@ class Orders extends Component
     {
         $patient = Patient::where('dni', $this->dni)->first();
 
-        $this->name = $patient->name;
+        $this->firstname = $patient->firstname;
+        $this->secondname = $patient->secondname;
+        $this->surname = $patient->surname;
         $this->lastname = $patient->lastname;
     }
 
@@ -131,8 +134,18 @@ class Orders extends Component
             'created_at' => $order->created_at,
         ];
 
+        $data2 = [
+            'order_id' => $order->id,
+            'patient_id' => $order->patient_id,
+            'module_id' => $order->module_id,
+            'session_id' => $order->session_id,
+            'user_id' => $order->user_id,
+            'created_at' => $order->created_at,
+            'hour_hd' => $this->hour_hd
+        ];
+
+        $medical = $order->medical()->create($data2);
         $nurse = $order->nurse()->create($data);
-        $medical = $order->medical()->create($data);
         $treatment = $order->treatment()->create($data);
 
         $this->resetUI();
@@ -143,9 +156,14 @@ class Orders extends Component
     {
         $this->patientId = $order->patient_id;
         $this->dni = $order->patient->dni;
+        $this->firstname = $order->patient->firstname;
+        $this->secondname = $order->patient->secondname;
+        $this->surname = $order->patient->surname;
+        $this->lastname = $order->patient->lastname;
         $this->moduleId = $order->module_id;
         $this->sessionId = $order->session_id;
         $this->selected_id = $order->id;
+        $this->hour_hd = $order->medical->hour_hd;
 
         $this->emit('show-modal', 'Show Modal!');
     }

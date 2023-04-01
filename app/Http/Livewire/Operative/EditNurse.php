@@ -12,18 +12,18 @@ class EditNurse extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $name, $lastname, $module, $session, $nurse;
+    public $surname, $lastname, $module, $session, $nurse, $indicaciones;
     public $select_id, $hcl, $frequency, $nhd, $others, $start_pa, $user_id,$end_pa, $start_weight, $end_weight, $machine, $brand_model, $position, $filter, $uf, $access_arterial, $access_venoso, $iron, $epo2000, $epo4000, $hidroxi, $calcitriol, $others_med, $end_observation, $aspect_dializer, $s, $o, $a, $p;
 
     public function mount($nurse)
     {
         $patient = $nurse->patient_id;
         $datenow = Carbon::now();
+        $ultimo = $nurse->where('patient_id', $patient)->whereDate('created_at', '!=', $datenow)->latest()->first();
+        $ult = $ultimo ? $ultimo->nhd : 0;
 
         if (!$nurse->nhd)
         {
-            $ultimo = $nurse->where('patient_id', $patient)->whereDate('created_at', '!=', $datenow)->latest()->first();
-            $ult = $ultimo ? $ultimo->nhd : 0;
             $nurse->nhd = $ult + 1;
         }
         else
@@ -32,10 +32,13 @@ class EditNurse extends Component
         }
 
         $this->select_id = $nurse->id;
-        $this->name = $nurse->patient->name;
+        $this->surname = $nurse->patient->surname;
         $this->lastname = $nurse->patient->lastname;
+        $this->firstname = $nurse->patient->firstname;
+        $this->secondname = $nurse->patient->secondname;
         $this->module = $nurse->module->name;
         $this->session = $nurse->session->name;
+        $this->indicaciones = $nurse->order->medical->indications;
 
         $this->hcl = !$nurse->hcl ? $nurse->patient->dni : $nurse->hcl;
 
@@ -66,15 +69,23 @@ class EditNurse extends Component
         $this->brand_model = !$nurse->brand_model ? "NIPRO" : $nurse->brand_model;
         $this->position = $nurse->position;
         $this->filter = !$nurse->filter ? '1.9' : $nurse->filter;
-        $this->uf = !$nurse->uf ? $nurse->order->medical->uf : $nurse->uf;
-        $this->access_arterial = $nurse->access_arterial;
-        $this->access_venoso = $nurse->access_venoso;
-        $this->iron = $nurse->iron;
-        $this->epo2000 = $nurse->epo2000;
-        $this->epo4000 = $nurse->epo4000;
-        $this->hidroxi = $nurse->hidroxi;
-        $this->calcitriol = $nurse->calcitriol;
+        $this->uf = $nurse->order->medical->uf;
+
+        $accesos = $nurse->where('patient_id', $patient)->where(function ($query) use ($datenow) {
+            $query->where('created_at', '!=', $datenow)
+                ->orWhereNull('created_at');
+        })->orderBy('created_at', 'desc')->value('access_arterial', 'access_venoso');
+
+        $this->access_arterial = $accesos ? $nurse->access_arterial : "FAV";
+        $this->access_venoso = $accesos ? $nurse->access_venoso : "FAV";
+
+        $this->iron = !$nurse->iron ? $nurse->order->medical->iron : $nurse->iron;
+        $this->epo2000 = !$nurse->epo2000 ? $nurse->order->medical->epo2000 : $nurse->epo2000;
+        $this->epo4000 = !$nurse->epo4000 ? $nurse->order->medical->epo4000 : $nurse->epo4000;
+        $this->hidroxi = !$nurse->hidroxi ? $nurse->order->medical->vitb12 : $nurse->hidroxi;
+        $this->calcitriol = !$nurse->calcitriol ? $nurse->order->medical->calci : $nurse->calcitriol;
         $this->others_med = $nurse->others_med;
+
         $this->end_observation = $nurse->end_observation;
         $this->aspect_dializer = !$nurse->aspect_dializer ? '0' : $nurse->aspect_dializer;
         $this->s = $nurse->s;
@@ -92,7 +103,7 @@ class EditNurse extends Component
 
     public function Update()
     {
-        $rules = [
+        /*$rules = [
            'hcl' => 'required',
            'frequency' => 'required',
            'nhd' => 'required',
@@ -152,7 +163,7 @@ class EditNurse extends Component
             'p.required' => 'El campo es requerido.',
         ];
 
-        $this->validate($rules, $messages);
+        $this->validate($rules, $messages);*/
 
         $nurse = Nurse::find($this->select_id);
 

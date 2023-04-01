@@ -2,7 +2,7 @@
     <div class="page-header">
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $name }}, {{ $lastname }}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">{{ $surname }} {{ $lastname }}, {{ $firstname }} {{ $secondname }}</a></li>
                 <li class="breadcrumb-item" aria-current="page"><a href="javascript:void(0);">{{ $module }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">{{ $session }}</a></li>
             </ol>
@@ -16,7 +16,7 @@
                     <h3>VALORACION DE ENFERMERIA</h3>
                 </div>
 
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center">
 
                     <div class="row">
 
@@ -172,7 +172,7 @@
 
                     <div class="row">
 
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-3 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">Filtro:</label>
                                 <div class="input-group">
@@ -184,7 +184,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-12 mx-auto">
+                        <div class="col-lg-3 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">UF:</label>
                                 <div class="input-group">
@@ -226,18 +226,6 @@
                             @error('access_venoso')
                                 <span class="text-danger er">{{ $message }}</span>
                             @enderror
-                        </div>
-
-                        <div class="col-lg-2 col-12 mx-auto">
-                            <div class="form-group">
-                                <label class="control-label">Hierro:</label>
-                                <div class="input-group">
-                                    <input wire:model="iron" type="text" class="form-control" required>
-                                </div>
-                                @error('iron')
-                                <span class="text-danger er">{{ $message }}</span>
-                                @enderror
-                            </div>
                         </div>
 
                     </div>
@@ -282,6 +270,18 @@
 
                         <div class="col-lg-2 col-12 mx-auto">
                             <div class="form-group">
+                                <label class="control-label">Hierro:</label>
+                                <div class="input-group">
+                                    <input wire:model="iron" type="text" class="form-control" required>
+                                </div>
+                                @error('iron')
+                                <span class="text-danger er">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-12 mx-auto">
+                            <div class="form-group">
                                 <label class="control-label">Calcitriol:</label>
                                 <div class="input-group">
                                     <input wire:model="calcitriol" type="text" class="form-control" required>
@@ -292,7 +292,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-12 mx-auto">
+                        <div class="col-lg-2 col-12 mx-auto">
                             <div class="form-group">
                                 <label class="control-label">Otros Medicamentos:</label>
                                 <div class="input-group">
@@ -336,7 +336,7 @@
                         </div>
 
                         <div class="form-group mb-4 col-lg-3 col-12 text-center">
-                            <label for="exampleFormControlTextarea1">p:</label>
+                            <label for="exampleFormControlTextarea1">P:</label>
                             <textarea class="form-control" wire:model="p" rows="3"></textarea>
 
                             @error('p')
@@ -344,11 +344,20 @@
                             @enderror
                         </div>
 
-                        <div class="form-group mb-4 col-lg-12 col-12 text-center">
+                        <div class="form-group mb-4 col-lg-6 col-12 text-center">
                             <label for="exampleFormControlTextarea1">Observación Final:</label>
                             <textarea class="form-control" wire:model="end_observation" rows="3"></textarea>
 
                             @error('end_observation')
+                            <span class="text-danger er">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-4 col-lg-6 col-12 text-center">
+                            <label for="exampleFormControlTextarea1">INDICACIONES MEDICAS:</label>
+                            <textarea class="form-control text-info" wire:model="indicaciones" rows="3" readonly></textarea>
+
+                            @error('indicaciones')
                             <span class="text-danger er">{{ $message }}</span>
                             @enderror
                         </div>

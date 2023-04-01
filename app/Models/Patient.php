@@ -16,6 +16,11 @@ class Patient extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function fuas()
+    {
+        return $this->hasMany(Fua::class);
+    }
+
     public function medical()
     {
         return $this->hasOne(Medical::class);

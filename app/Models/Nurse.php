@@ -16,6 +16,11 @@ class Nurse extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function fua()
+    {
+        return $this->belongsTo(Fua::class);
+    }
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);

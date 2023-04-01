@@ -49,11 +49,11 @@
                             <tr>
                                 <td class="text-center">{{ $patient->id }}</td>
                                 <td class="text-center">{{ $patient->dni }}</td>
-                                <td class="text-center">{{ $patient->firstname }}, {{ $patient->secondname }}</td>
+                                <td class="text-center">{{ $patient->firstname }} {{ $patient->secondname }}</td>
                                 <td class="text-center">{{ $patient->surname }}, {{ $patient->lastname }}</td>
-                                <td class="text-center">{{ $patient->lastname }}</td>
                                 <td class="text-center">{{ $patient->phone }}</td>
                                 <td class="text-center">{{ $patient->code }}</td>
+                                <td class="text-center">{{ $patient->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
                                     @if($patient->status == "ACTIVE")
                                         <span class="badge outline-badge-success"> ACTIVO </span>
@@ -61,7 +61,6 @@
                                         <span class="badge outline-badge-danger"> INACTIVO </span>
                                     @endif
                                 </td>
-                                <td class="text-center">{{ $patient->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
                                         <a href="javascript:void(0);" wire:click="Edit({{ $patient->id }})"  data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit text-warning fa-lg btn btn-outline-warning"></i></a>
 

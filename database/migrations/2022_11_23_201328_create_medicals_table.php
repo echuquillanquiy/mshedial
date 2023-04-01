@@ -40,12 +40,18 @@ class CreateMedicalsTable extends Migration
             $table->string('membrane')->nullable();
             $table->text('clinical_trouble')->nullable();
             $table->string('fc')->nullable();
+            $table->string('so2')->nullable();
             $table->text('evaluation')->nullable();
             $table->text('end_evaluation')->nullable();
             $table->string('start_hour')->nullable();
             $table->string('end_hour')->nullable();
             $table->text('indications')->nullable();
             $table->text('signal')->nullable();
+            $table->string('epo2000')->nullable();
+            $table->string('epo4000')->nullable();
+            $table->string('vitb12')->nullable();
+            $table->string('iron')->nullable();
+            $table->string('calci')->nullable();
             $table->timestamps();
         });
     }

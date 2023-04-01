@@ -48,7 +48,7 @@
                         @foreach($nurses as $nurse)
                             <tr>
                                 <td class="text-center">{{ $nurse->id }}</td>
-                                <td class="text-center">{{ $nurse->patient->surname }}</td>
+                                <td class="text-center">{{ $nurse->patient->surname }} {{ $nurse->patient->lastname }},  {{ $nurse->patient->firstname }} {{ $nurse->patient->secondname }}</td>
                                 <td class="text-center">{{ $nurse->module->name }}</td>
                                 <td class="text-center">{{ $nurse->session->name }}</td>
                                 <td class="text-center">
@@ -60,10 +60,10 @@
                                 </td>
                                 <td class="text-center">{{ $nurse->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('nurse.edit', $nurse) }}" data-toggle="tooltip" data-placement="top" title="HISTORIA"><i class="fas fa-user-nurse text-info fa-lg btn btn-outline-info"></i></a>
+                                    <a href="{{ route('nurse.edit', $nurse) }}" data-toggle="tooltip" data-placement="top" title="ENFERMERIA" target="_blank"><i class="fas fa-user-nurse text-info fa-lg btn btn-outline-info"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="" data-toggle="tooltip" data-placement="top" title="GENERAR REFERENCIA"><i class="fas fa-book-medical text-secondary fa-lg btn btn-outline-secondary"></i></a>
+                                    <a href="{{ route('treatment.edit', $nurse->order->treatment) }}" data-toggle="tooltip" data-placement="top" title="TRATAMIENTO" target="_blank"><i class="fas fa-book-medical text-secondary fa-lg btn btn-outline-secondary"></i></a>
                                 </td>
                             </tr>
                         @endforeach

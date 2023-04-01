@@ -52,11 +52,7 @@
                                 <td class="text-center">{{ $order->session->name }}</td>
                                 <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td class="text-center">
-                                    <div class="n-chk">
-                                        <label class="new-control new-checkbox checkbox-primary">
-                                            <button type="button" class="btn btn-success" wire:click="downloadPdf" wire:loading.attr="disabled"><i class="fas fa-print"></i></button>
-                                        </label>
-                                    </div>
+                                    <button type="button" class="btn btn-success" wire:click="downloadPdf({{ $order->id }})"><i class="fas fa-print"></i></button>
                                 </td>
                             </tr>
                         @endforeach

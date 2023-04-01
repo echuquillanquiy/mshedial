@@ -9,7 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class Printhcl extends Component
 {
@@ -53,12 +53,7 @@ class Printhcl extends Component
 
     public function downloadPdf(Order $order)
     {
-        $pdf = PDF::loadView('operativo.ordenes.historiaHemo', compact('order'));
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename=historia.pdf',
-        ];
-
-        return new Response($pdf->output(), 200, $headers);
+        $pdf = PDF::loadView('livewire.operative.orden.historia', compact('order'));
+        return $pdf->download('historia.pdf');
     }
 }
